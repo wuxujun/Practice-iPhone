@@ -7,7 +7,20 @@
 //
 
 #import "LoginViewController.h"
+#import "UIViewController+NavigationBarButton.h"
+
+@interface LoginViewController()
+
+@end
 
 @implementation LoginViewController
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setCenterTitle:@"我的简历"];
+}
+
+
 
 @end

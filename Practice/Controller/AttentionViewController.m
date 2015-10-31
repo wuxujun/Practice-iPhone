@@ -7,7 +7,14 @@
 //
 
 #import "AttentionViewController.h"
+#import "UIViewController+NavigationBarButton.h"
 
 @implementation AttentionViewController
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setCenterTitle:@"我的关注"];
+}
 
 @end

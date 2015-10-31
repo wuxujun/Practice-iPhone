@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 xujunwu. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "BViewController.h"
 
-@interface CategoryViewController : BaseViewController
+@interface CategoryViewController : BViewController
 
 @end

@@ -17,6 +17,14 @@
     #import <OpenUDID.h>
 #endif
 
+typedef enum{
+    SearchContentTypeHome = 1,
+    SearchContentTypeSale,
+    SearchContentTypeMap,
+    SearchContentTypeWeal,
+    SearchContentTypeMy,
+}SearchContentType;
+
 #define DB_FILE_NAME    @"practice.sqlite"
 
 
@@ -31,7 +39,7 @@
 #define REDIRECTURI_WEIBO   @"https://hlterm.oicp.net/openapi/ability/index.php/Micblog/callback"
 
 #define APPKEY_TENCENT      @"100334902"
-#define kHttpUrl @"http://121.40.19.136/index.php?/ums/"
+#define kHttpUrl @"http://sx.asiainstitute.cn/index.php?/ums/"
 
 
 #define ApplicationDelegate                 ((AppDelegate *)[[UIApplication sharedApplication] delegate])
@@ -41,8 +49,8 @@
 #define IS_IPHONE_5 (IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0f)
 #define IS_RETINA ([[UIScreen mainScreen] scale] == 2.0f)
 
-#define iOS_VERSION_6         ([[[UIDevice currentDevice] systemVersion] integerValue] >= 6.0)
-#define iOS_VERSION_7         ([[[UIDevice currentDevice] systemVersion] integerValue] >= 7.0)
+#define IOS_VERSION_6         ([[[UIDevice currentDevice] systemVersion] integerValue] >= 6.0)
+#define IOS_VERSION_7_OR_ABOVE         ([[[UIDevice currentDevice] systemVersion] integerValue] >= 7.0)
 #define IOS_VERSION_8_OR_ABOVE         (([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)? (YES):(NO))
 
 
@@ -71,6 +79,7 @@
 #define APP_TABLEBG_COLOR       RGBCOLOR(48,48,48)
 #define APP_FONT_COLOR_SEL      RGBCOLOR(60,201,121)
 #define APP_FONT_COLOR          RGBCOLOR(128,128,128)
+#define APP_LINE_COLOR          RGBCOLOR(60,201,121)
 #define APP_LINE_GREEN          RGBCOLOR(60,201,121)
 #define APP_LINE_YELLOW         RGBCOLOR(255,247,131)
 #define APP_LINE_RED            RGBCOLOR(235,144,143)
@@ -98,6 +107,9 @@
 #define UPLOAD_AVATAR_NOTIFICATION  @"kUpload_Avatar"
 
 #define CURRENT_ACCOUNT_ID          @"current_account_id"
+
+#define CONF_CURRENT_CITYNAME       @"conf_current_city_name"
+#define CONF_CURRENT_CITYCODE       @"conf_current_city_code"
 
 
 #define REGEX_USER_NAME_LIMIT @"^.{3,10}$"

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNetworkEngine.h"
+
 
 @interface BaseViewController : UITableViewController
 
+@property(nonatomic,strong)HNetworkEngine*      networkEngine;
+@property(nonatomic,strong)NSMutableArray       *data;
+
+
+-(void)alertRequestResult:(NSString*)message isPop:(BOOL)flag;
 @end

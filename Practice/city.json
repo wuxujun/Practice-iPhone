@@ -1,0 +1,19 @@
+[
+    {
+        "id":1,"title":"上海","valueKey":"conf_area_code","value":"021"
+    },{
+        "id":2,"title":"杭州","valueKey":"conf_area_code","value":"0571"
+    },{
+        "id":3,"title":"北京","valueKey":"conf_area_code","value":"010"
+    },{
+        "id":4,"title":"广州","valueKey":"conf_area_code","value":"020"
+    },{
+        "id":5,"title":"天津","valueKey":"conf_area_code","value":"022"
+    },{
+        "id":6,"title":"南京","valueKey":"conf_area_code","value":"025"
+    },{
+        "id":7,"title":"武汉","valueKey":"conf_area_code","value":"027"
+    },{
+        "id":8,"title":"深圳","valueKey":"conf_area_code","value":"0755"
+    }
+]

@@ -16,7 +16,7 @@
 
 - (void)adjustButtonForiOS7:(UIButton *)button left:(BOOL)isLeft
 {
-    if (iOS_VERSION_7) {
+    if (IOS_VERSION_7_OR_ABOVE) {
         if (isLeft) {
             button.contentEdgeInsets = UIEdgeInsetsMake(0, -19.0f, 0, 0.0f);
         }else{
@@ -38,7 +38,7 @@
 -(void)addBackBarButton{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.adjustsImageWhenHighlighted = NO;
-    button.frame = CGRectMake(10, 0, 44.0f, 44.0f);
+    button.frame = CGRectMake(10, 0, 44.0f, 34.0f);
     button.titleLabel.textColor=[UIColor whiteColor];
     button.titleLabel.font=[UIFont systemFontOfSize:16.0f];
     [button setTitle:@"返回" forState:UIControlStateNormal];
@@ -68,6 +68,20 @@
     [self adjustButtonForiOS7:button left:NO];
     [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+- (void)addLeftTitleButton:(NSString*)title action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.adjustsImageWhenHighlighted = NO;
+    button.frame = CGRectMake(0, 0, 44.0f, 44.0f);
+    button.titleLabel.textColor=[UIColor whiteColor];
+    button.titleLabel.font=[UIFont systemFontOfSize:16.0f];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:RGBCOLOR(60, 193, 102) forState:UIControlStateHighlighted];
+    [self adjustButtonForiOS7:button left:YES];
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
 }
 
 
@@ -145,14 +159,14 @@
 
 -(void)addRightButtonWithTitle:(NSString *)title withSel:(SEL)action{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, 0, 60, 34);
+    button.frame = CGRectMake(0, 0, 44, 34);
     [button setBackgroundImage:[UIImage imageNamed:@"More_UserCenter_butt.png"] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageNamed:@"More_UserCenter_butt_Press.png"] forState:UIControlStateHighlighted];
     [self adjustButtonForiOS7:button left:NO];
     
     UILabel *titleLabel = button.titleLabel;
     [titleLabel setTextColor:RGBCOLOR(229, 227, 227)];
-    [titleLabel setFont:[UIFont systemFontOfSize:14.0]];
+    [titleLabel setFont:[UIFont systemFontOfSize:16.0]];
     [button setTitle:title forState:UIControlStateNormal];
     [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];

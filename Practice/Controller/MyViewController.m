@@ -7,7 +7,17 @@
 //
 
 #import "MyViewController.h"
+#import "UIViewController+NavigationBarButton.h"
+
 
 @implementation MyViewController
+
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setCenterTitle:@"我的"];
+}
+
 
 @end

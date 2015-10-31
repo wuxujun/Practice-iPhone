@@ -7,7 +7,15 @@
 //
 
 #import "ResumeViewController.h"
+#import "UIViewController+NavigationBarButton.h"
 
 @implementation ResumeViewController
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setCenterTitle:@"我的简历"];
+}
+
 
 @end

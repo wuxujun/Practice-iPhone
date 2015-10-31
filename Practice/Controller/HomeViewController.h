@@ -7,7 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import "DMLazyScrollView.h"
 
-@interface HomeViewController : BaseViewController
+@interface HomeViewController : BaseViewController<UISearchBarDelegate,DMLazyScrollViewDelegate>
 
 @end

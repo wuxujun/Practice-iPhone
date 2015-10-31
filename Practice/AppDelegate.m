@@ -9,18 +9,18 @@
 #import "AppDelegate.h"
 #import "MobClick.h"
 
-#import <UMSocial.h>
-#import <UMSocialSnsService.h>
-#import <UMSocialWechatHandler.h>
-#import <UMSocialQQHandler.h>
-#import <UMSocialSinaHandler.h>
+#import "UMSocial.h"
+#import "UMSocialSnsService.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
+#import "UMSocialSinaHandler.h"
 
 #import <GoogleAnalytics/GAIFields.h>
 #import <GoogleAnalytics/GAITracker.h>
 #import <GoogleAnalytics/GAIDictionaryBuilder.h>
 
 
-static NSString *const kTrackingId=@"UA-30968675-6";
+static NSString *const kTrackingId=@"UA-30968675-7";
 static NSString *const kAllowTracking=@"allowTracking";
 
 
@@ -43,7 +43,6 @@ static NSString *const kAllowTracking=@"allowTracking";
     
     [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Practice"];
     [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createScreenView]build]];
-    
     
     return YES;
 }
