@@ -1,0 +1,13 @@
+[
+  {
+ "id":1,"title":"已申请的","image":"ic_my_resume","value":"021","actionUrl":"myOfficeReq"
+  },{
+  "id":2,"title":"发现更多","image":"ic_my_more","value":"0571"
+  },{
+  "id":3,"title":"消息通知","image":"ic_my_message","value":"010"
+  },{
+  "id":4,"title":"设置","image":"ic_my_setting","value":"020","fileName":"my_setting"
+ },{
+ "id":5,"title":"关于我们","image":"ic_my_about","value":"020"
+ }
+  ]

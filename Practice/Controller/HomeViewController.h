@@ -8,7 +8,9 @@
 
 #import "BaseViewController.h"
 #import "DMLazyScrollView.h"
+#import <CoreLocation/CoreLocation.h>
+#import <CoreLocation/CLLocationManagerDelegate.h>
 
-@interface HomeViewController : BaseViewController<UISearchBarDelegate,DMLazyScrollViewDelegate>
+@interface HomeViewController : BaseViewController<CLLocationManagerDelegate,UISearchBarDelegate,DMLazyScrollViewDelegate>
 
 @end

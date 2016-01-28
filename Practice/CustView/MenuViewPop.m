@@ -129,7 +129,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     NSDictionary* dict=[data objectAtIndex:indexPath.row];
-    UILabel* biLabel=[[UILabel alloc]initWithFrame:CGRectMake(20, (44-26)/2, SCREEN_WIDTH-40, 26)];
+    UIImageView *icon=[[UIImageView alloc]initWithFrame:CGRectMake(8, 8, 28, 28)];
+    [icon setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",[dict objectForKey:@"image"]]]];
+    [cell addSubview:icon];
+
+    UILabel* biLabel=[[UILabel alloc]initWithFrame:CGRectMake(42, (44-26)/2, SCREEN_WIDTH-50, 26)];
     [biLabel setText:[dict objectForKey:@"title"]];
     [biLabel setFont:[UIFont systemFontOfSize:FONT_SIZE]];
     [cell addSubview:biLabel];

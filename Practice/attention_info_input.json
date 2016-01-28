@@ -1,0 +1,15 @@
+[
+ {
+ "id":0,"title":"空行","type":"99"},{
+  "id":1,"title":"工作性质","type":"3","value":"workType","valueCode":"workTypeCode","paramValue":"1","prompt":"请选择工作性质","request":1},{
+ "id":2,"title":"学历要求","type":"3","value":"grade","valueCode":"gradeCode","paramValue":"3","prompt":"请选择学历要求","request":1},{
+  "id":3,"title":"是否留用","type":"3","value":"isSave","valueCode":"isSaveCode","paramValue":"6","prompt":"请选择是否留用","request":1},{
+  "id":4,"title":"工作经验","type":"3","value":"workExp","valueCode":"workExpCode","paramValue":"5","prompt":"请选择工作经验","request":1},{
+ "id":5,"title":"公司性质","type":"3","value":"companyType","valueCode":"companyTypeCode","paramValue":"4","prompt":"请选择公司性质","request":1},{
+ "id":6,"title":"报酬范围","type":"3","value":"reward","valueCode":"rewardCode","paramValue":"reward","prompt":"请选择报酬范围","request":1},{
+ "id":7,"title":"工作地点","type":"3","value":"area","valueCode":"areaCode","paramValue":"workAddr","prompt":"请选择工作地点","request":1},{
+ "id":8,"title":"行业","type":"3","value":"industry","valueCode":"industryCode","paramValue":"industry","prompt":"请选择行业","request":1},{
+ "id":9,"title":"类别","type":"3","value":"category","valueCode":"categoryCode","paramValue":"category","prompt":"请选择类别","request":1},{
+ "id":10,"title":"职位","type":"3","value":"office","valueCode":"officeCode","paramValue":"office","prompt":"请选择职位","request":1},{
+ "id":11,"title":"关键字","type":"0","value":"keyword","prompt":"请输入关键字","request":0}
+  ]

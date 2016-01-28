@@ -84,7 +84,7 @@
     for (UIView *subView in viewTop.subviews) {
         if ([subView isKindOfClass:NSClassFromString(classString)]) {
             UIButton *cancelButton = (UIButton*)subView;
-            [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [cancelButton setTitleColor:APP_FONT_BLUE forState:UIControlStateNormal];
             [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
         }
     }

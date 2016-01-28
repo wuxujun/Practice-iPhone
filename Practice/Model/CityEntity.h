@@ -12,7 +12,16 @@ typedef void(^SqlBlock)(NSString * sql,NSArray* arguments);
 
 @interface CityEntity : NSObject
 @property(nonatomic,assign) NSInteger   cid;
-@property(nonatomic,strong) NSString*   title;
+@property(nonatomic,assign) NSInteger   type;
+@property(nonatomic,strong) NSString*   pId;
+@property(nonatomic,strong) NSString*   cityId;
+@property(nonatomic,strong) NSString*   cityName;
+@property(nonatomic,assign) NSInteger   top;
+
+
+
++(void)generateInsertSql:(NSDictionary*)info completion:(SqlBlock)completion;
++(void)generateUpdateSql:(NSDictionary*)info completion:(SqlBlock)completion;
 
 
 @end

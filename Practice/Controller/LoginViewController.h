@@ -6,8 +6,8 @@
 //  Copyright © 2015年 xujunwu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BViewController.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : BViewController
 
 @end

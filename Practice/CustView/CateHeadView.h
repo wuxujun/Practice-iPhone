@@ -15,14 +15,14 @@
     id<CateHeadViewDelegate>        delegate;
     NSArray*                        datas;
 }
-@property(nonatomic,weak)id<CateHeadViewDelegate>  delegate;
-
 -(id)initWithFrame:(CGRect)frame  forData:(NSArray*)aDatas delegate:(id)aDelegate;
+
+-(void)selectButton:(int)idx;
 
 @end
 
 
-@protocol CateHeadViewDelegate
+@protocol CateHeadViewDelegate <NSObject>
 
 -(void)onCateHeadViewClicked:(CateHeadView*)view forIndex:(NSInteger)idx;
 

@@ -62,7 +62,7 @@ static HCurrentUserContext *sharedHCurrentUserContext = nil;
 }
 
 -(void)loginWithUserName:(NSString *)username password:(NSString *)password success:(OperationSuccessBlock)successBlock error:(MKNKErrorBlock)errorBlock{
-    NSMutableDictionary *params = [@{@"username":username,@"password":[password md5]} mutableCopy];
+    NSMutableDictionary *params = [@{@"mobile":username,@"password":[password md5]} mutableCopy];
     __unsafe_unretained HCurrentUserContext *myself = self;
     NSString *url = [NSString stringWithFormat:@"%@login",kHttpUrl];
     [self.networkEngine postOperationWithURLString:url params:params success:^(MKNetworkOperation *completedOperation, id result) {
@@ -89,7 +89,7 @@ static HCurrentUserContext *sharedHCurrentUserContext = nil;
 }
 
 -(void)registerWithUserName:(NSString *)username password:(NSString *)password  email:(NSString *)email success:(HBOOLBlock)successBlock error:(MKNKErrorBlock)errorBlock{
-    NSMutableDictionary *params = [@{@"username":username,@"password":[password md5],@"email":email} mutableCopy];
+    NSMutableDictionary *params = [@{@"mobile":username,@"password":[password md5],@"email":email} mutableCopy];
     NSString *url = [NSString stringWithFormat:@"%@register",kHttpUrl];
     [self.networkEngine postOperationWithURLString:url params:params success:^(MKNetworkOperation *completedOperation, id result) {
         NSDictionary *resultDict = result;

@@ -1,0 +1,11 @@
+[
+  {
+  "id":1,"title":"理科","valueKey":"conf_area_code","value":"021"
+  },{
+  "id":2,"title":"工科","valueKey":"conf_area_code","value":"0571"
+  },{
+  "id":3,"title":"文科","valueKey":"conf_area_code","value":"010"
+  },{
+  "id":4,"title":"商科","valueKey":"conf_area_code","value":"020"
+  }
+  ]

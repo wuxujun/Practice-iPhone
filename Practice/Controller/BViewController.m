@@ -20,10 +20,12 @@
 
 -(void)viewDidLoad
 {
-    datas=[[NSMutableArray alloc]init];
+    self.data=[[NSMutableArray alloc]init];
     if (IOS_VERSION_7_OR_ABOVE) {
         self.navigationController.navigationBar.barTintColor=APP_BACKGROUND_COLOR;
     }
+    
+    self.networkEngine=[[HNetworkEngine alloc]initWithHostName:nil customHeaderFields:nil];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle

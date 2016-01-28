@@ -74,7 +74,7 @@ static FMDatabase *db;
         [db close];
         db = nil;
     }
-    sqlite3_config(SQLITE_CONFIG_SERIALIZED);
+//    sqlite3_config(SQLITE_CONFIG_SERIALIZED);
     db = [[FMDatabase alloc] initWithPath:dbPath];
     BOOL ret = [db open];
     DLog(@"Open database [%@] %@", dbPath, ret ? @"success" : @"failed");

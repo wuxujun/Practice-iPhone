@@ -1,0 +1,8 @@
+[
+  {"id":1,"title":"消息推送","type":"1","value":"conf_message_push"},
+{"id":2,"title":"非Wifi网络下不下载图片","type":"1","value":"conf_wifi_photo_downing"},
+{"id":3,"title":"记住帐号和密码信息","type":"1","value":"conf_account_save"},
+ {"id":4,"title":"帮助和反馈","type":"3","value":"help"},{
+ "id":5,"title":"空行","type":"99","value":"010","request":0},{
+ "id":6,"title":"用户注销","type":"20","value":"010","request":0}
+  ]

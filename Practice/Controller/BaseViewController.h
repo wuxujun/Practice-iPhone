@@ -14,6 +14,7 @@
 
 @property(nonatomic,strong)HNetworkEngine*      networkEngine;
 @property(nonatomic,strong)NSMutableArray       *data;
+@property(nonatomic,strong)NSDictionary         *infoDict;
 
 
 -(void)alertRequestResult:(NSString*)message isPop:(BOOL)flag;

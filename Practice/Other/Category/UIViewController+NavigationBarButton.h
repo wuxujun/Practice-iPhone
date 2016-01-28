@@ -14,8 +14,11 @@
 - (void)removeCenterSearchBar;
 - (void)addBackBarButton;
 - (void)addLeftTitleButton:(NSString*)title action:(SEL)action;
+- (void)addLeftTitleButtonForDown:(NSString*)title action:(SEL)action;
+- (void)addLeftTitleButtonForUp:(NSString*)title action:(SEL)action;
 - (void)addRightTitleButton:(NSString* )title action:(SEL)action;
 - (void)addRightSearchButton:(SEL)action;
+- (void)addRightMenuButton:(SEL)action;
 - (void)addRightFavoriteButton:(BOOL)isCollected action:(SEL)action;
 - (void)addRightSettingButton:(SEL)action;
 - (void)addRightButtonWithTitle:(NSString *)title withSel:(SEL)action;

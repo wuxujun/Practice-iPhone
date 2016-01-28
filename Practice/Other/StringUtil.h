@@ -30,6 +30,7 @@
 +(NSString*)dateToDay:(NSString*)pickTime;
 +(NSString*)dateToMonth:(NSString*)pickTime;
 +(NSInteger)dateWithPickTimeDays:(NSString*)pickTime;
++(NSInteger)dateWithDaysForBegin:(NSString *)beginTime  forEnd:(NSString*)endTime;
 
 +(NSString *)ToHex:(int)tmpid;
 @end

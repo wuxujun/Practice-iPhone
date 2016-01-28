@@ -1,0 +1,12 @@
+[
+ {
+ "id":0,"title":"空","type":"99","value":"010","request":0},{
+ "id":1,"title":"空","type":"99","value":"010","request":0},{
+  "id":2,"title":"帐号","type":"0","dataType":0,"value":"account","prompt":"请输入帐号","request":1},{
+ "id":3,"title":"密码","type":"0","dataType":4,"value":"password","prompt":"请输入密码","request":1},{
+ "id":4,"title":"空","type":"99","value":"010","request":0},{
+  "id":5,"title":"登录","type":"20","value":"010","request":0},{
+ "id":6,"title":"忘记密码","type":"21","value":"020","request":0},{
+ "id":7,"title":"空","type":"99","value":"010","request":0},{
+ "id":8,"title":"第三方登录","type":"22","request":0,"data":[{"image":"ic_qq.png","name":"QQ","id":1},{"image":"ic_weixin.png","name":"微信","id":2},{"image":"ic_weibo.png","name":"微博","id":3},{"image":"ic_linkin.png","name":"领英","id":4}],"prompt":"请输入邮箱"}
+  ]

@@ -29,15 +29,17 @@
         if ([key isEqualToString:@"content"]) {
             NSDictionary* dc=[obj objectForKey:@"images"];
             if ([dc objectForKey:@"image"]) {
-                [operation addFile:[dc objectForKey:@"image"] forKey:@"image" mimeType:@"image/jpeg"];
+                [operation addFile:[dc objectForKey:@"image"] forKey:@"file" mimeType:@"image/jpeg"];
             }
         }
+
 //        [operation addData:obj forKey:key];
     }];
     [operation onUploadProgressChanged:processBlock];
     
     
     [operation onCompletion:^(MKNetworkOperation *completedOperation) {
+        DLog(@"%@",completedOperation.responseString);
         NSDictionary *json = [completedOperation responseJSON];
         id status = [json objectForKey:@"status"];
         if (status!=nil && [status intValue]!=1) {//

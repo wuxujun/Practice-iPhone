@@ -38,9 +38,13 @@ typedef enum{
 #define APPSECRET_WEIBO     @"6edd97b068547492519b8eefa084f344"
 #define REDIRECTURI_WEIBO   @"https://hlterm.oicp.net/openapi/ability/index.php/Micblog/callback"
 
-#define APPKEY_TENCENT      @"100334902"
+#define APPKEY_QQ      @"100334902"
+#define APPKEY_QQ_SECRET    @""
 #define kHttpUrl @"http://sx.asiainstitute.cn/index.php?/ums/"
 
+
+#define APPKEY_WEIXIN        @"2846029855"
+#define APPKEY_WEIXIN_SECRET     @"6edd97b068547492519b8eefa084f344"
 
 #define ApplicationDelegate                 ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
@@ -75,14 +79,17 @@ typedef enum{
 
 #define LoadingImageBackgroundColor RGBCOLOR(203, 203, 203)
 
-#define APP_BACKGROUND_COLOR    RGBCOLOR(42, 42, 42)
+#define APP_BACKGROUND_COLOR    RGBCOLOR(248, 248, 248)
 #define APP_TABLEBG_COLOR       RGBCOLOR(48,48,48)
 #define APP_FONT_COLOR_SEL      RGBCOLOR(60,201,121)
 #define APP_FONT_COLOR          RGBCOLOR(128,128,128)
-#define APP_LINE_COLOR          RGBCOLOR(60,201,121)
+#define APP_LINE_COLOR          RGBCOLOR(170,170,170)
 #define APP_LINE_GREEN          RGBCOLOR(60,201,121)
 #define APP_LINE_YELLOW         RGBCOLOR(255,247,131)
 #define APP_LINE_RED            RGBCOLOR(235,144,143)
+
+#define APP_FONT_BLUE           RGBCOLOR(31,73,125)
+#define APP_LIST_ITEM_BG        RGBCOLOR(232,232,232)
 
 #define SYSTEM_SMALL_FONT   @"small font"
 #define SYSTEM_LARGE_FONT   @"large font"
@@ -101,15 +108,21 @@ typedef enum{
 #define BLEDATA_RECVICE         @"kBLEDataReceive"
 #define BLEDATA_RECVICE_STATUS  @"kBLEDataReceiveStatus"
 #define SYNC_DATA_REFRESH       @"kSyncDataRefresh"
-#define CONFIG_INIT_FLAG        @"CONFIG_INIT_FLAG"
 #define NOTIFICATION_OPEN_INFO  @"kNotificationOpenInfo"
 
-#define UPLOAD_AVATAR_NOTIFICATION  @"kUpload_Avatar"
+#define UPLOAD_IMAGE_NOTIFICATION  @"kUpload_Image"
 
 #define CURRENT_ACCOUNT_ID          @"current_account_id"
 
+#define CONF_INIT_FLAG              @"conf_init_flag"
+#define CONF_FIRST_START            @"conf_first_start"
+#define CONF_DATA_LASTUPDATE        @"conf_data_lastupdate"
+
 #define CONF_CURRENT_CITYNAME       @"conf_current_city_name"
 #define CONF_CURRENT_CITYCODE       @"conf_current_city_code"
+
+#define CONF_CURRENT_LONGITUDE      @"conf_current_longitude"
+#define CONF_CURRENT_LATITUDE       @"conf_current_latitude"
 
 
 #define REGEX_USER_NAME_LIMIT @"^.{3,10}$"

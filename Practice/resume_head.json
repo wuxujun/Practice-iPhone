@@ -1,0 +1,16 @@
+
+ [
+  {
+  "id":1,"title":"基本信息","image":"ic_resume_info","fileName":"resume_info_input","value":"100","actionUrl":"addMemberResume","listUrl":"resumeInfo"
+  },{
+  "id":2,"title":"简历照片","image":"ic_resume_photo","fileName":"resume_info_input","value":"200","actionUrl":"addPhoto","uploadUrl":"uploadImage"
+  },{
+  "id":3,"title":"实习工作","image":"ic_resume_work","fileName":"resume_work_input","value":"300","actionUrl":"addMemberWork","listUrl":"resumeWork"
+  },{
+  "id":4,"title":"语言技能","image":"ic_resume_lang","fileName":"resume_lang_input","value":"400","actionUrl":"addMemberLang","listUrl":"resumeLang"
+  },{
+  "id":5,"title":"所获荣誉","image":"ic_resume_honor","fileName":"resume_honor_input","value":"500","actionUrl":"addMemberHonor","listUrl":"resumeHonor"
+  },{
+  "id":6,"title":"校园生活","image":"ic_resume_life","fileName":"resume_life_input","value":"600","actionUrl":"addMemberLife","listUrl":"resumeLife"
+  }
+  ]

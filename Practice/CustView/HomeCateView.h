@@ -22,8 +22,8 @@
 @end
 
 
-@protocol HomeCateViewDelgate <NSObject>
+@protocol HomeCateViewDelegate <NSObject>
 
--(void)onHomeCatViewClicked:(HomeCateView*)view;
+-(void)onHomeCatViewClicked:(HomeCateView*)view forIdx:(NSInteger)idx;
 
 @end

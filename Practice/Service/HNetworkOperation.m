@@ -24,14 +24,12 @@
     [params setValue:@"ios" forKey:@"platform"];
     HCurrentUserContext *currentUser = [HCurrentUserContext sharedInstance];
     if ([currentUser hadLogin]) {
-        params[@"uid"] = currentUser.uid;
+        params[@"mid"] = currentUser.uid;
         params[@"username"] = [currentUser.username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     }else{
-        params[@"uid"] = @(0);
+        params[@"mid"] = @(0);
     }
-    
-    
-    
+
     NSMutableDictionary *jsonParams = [NSMutableDictionary dictionary];
 #if TARGET_IPHONE_SIMULATOR
     NSError* error;

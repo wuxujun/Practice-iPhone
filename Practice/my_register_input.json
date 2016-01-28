@@ -1,0 +1,11 @@
+ [
+  {
+  "id":0,"title":"空","type":"99","value":"010","request":0},{
+  "id":1,"title":"空","type":"99","value":"010","request":0},{
+  "id":2,"title":"手机号","type":"0","dataType":2,"value":"mobile","prompt":"请输入帐号","request":1},{
+  "id":3,"title":"Email","type":"0","dataType":3,"value":"email","prompt":"请输入Email","request":1},{
+  "id":4,"title":"密码","type":"0","dataType":4,"value":"password","prompt":"请输入密码","request":1},{
+  "id":5,"title":"确认密码","type":"0","dataType":4,"value":"password2","prompt":"请输入确认密码","request":1},{
+  "id":6,"title":"空","type":"99","value":"010","request":0},{
+  "id":7,"title":"注册","type":"20","value":"register","action":"reg","request":0}
+  ]

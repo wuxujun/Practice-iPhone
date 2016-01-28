@@ -1,0 +1,7 @@
+ [
+  {
+  "id":0,"title":"荣誉名称","type":"99"},{
+  "id":1,"title":"语言名称","type":"0","value":"title","prompt":"请输入语言名称","request":1},{
+  "id":2,"title":"语言水平","type":"3","value":"level","valueCode":"levelCode","paramValue":"8","prompt":"请选择语言水平","request":1},{
+  "id":3,"title":"所获证书","type":"10","value":"msg","prompt":"请输入相关信息","request":1}
+  ]

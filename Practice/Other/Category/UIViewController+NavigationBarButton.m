@@ -31,7 +31,7 @@
     UILabel* titleLabel=[[UILabel alloc]initWithFrame:CGRectMake(60, 5, bounds.size.width-120, 34)];
     [titleLabel setText:title];
     [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setTextColor:APP_FONT_BLUE];
     self.navigationItem.titleView=titleLabel;
 }
 
@@ -39,13 +39,14 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.adjustsImageWhenHighlighted = NO;
     button.frame = CGRectMake(10, 0, 44.0f, 34.0f);
-    button.titleLabel.textColor=[UIColor whiteColor];
-    button.titleLabel.font=[UIFont systemFontOfSize:16.0f];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
-    [button setTitleColor:RGBCOLOR(60, 193, 102) forState:UIControlStateHighlighted];
-    [button setImage:[UIImage imageNamed:@"icon_navi_back_bl"] forState:UIControlStateNormal];
-//    [button setImage:[UIImage imageNamed:@"icon_navi_back_bl"] forState:UIControlStateHighlighted];
-//    [button setImage:[UIImage imageNamed:@"icon_back_selected"] forState:UIControlStateSelected];
+//    button.titleLabel.textColor=APP_FONT_BLUE;
+//    button.titleLabel.font=[UIFont systemFontOfSize:16.0f];
+//    [button setTitle:@"返回" forState:UIControlStateNormal];
+//    [button setTitleColor:APP_FONT_BLUE forState:UIControlStateHighlighted];
+//    [button setTitleColor:APP_FONT_COLOR forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"ic_back"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"ic_back_s"] forState:UIControlStateHighlighted];
+    //[button setImage:[UIImage imageNamed:@"ic_back"] forState:UIControlStateSelected];
     [button addTarget:self action:@selector(gotoBack) forControlEvents:UIControlEventTouchUpInside];
     [self adjustButtonForiOS7:button left:YES];
     
@@ -61,9 +62,10 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.adjustsImageWhenHighlighted = NO;
     button.frame = CGRectMake(0, 0, 44.0f, 44.0f);
-    button.titleLabel.textColor=[UIColor whiteColor];
+    button.titleLabel.textColor=APP_FONT_BLUE;
     button.titleLabel.font=[UIFont systemFontOfSize:16.0f];
     [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:APP_FONT_COLOR forState:UIControlStateNormal];
     [button setTitleColor:RGBCOLOR(60, 193, 102) forState:UIControlStateHighlighted];
     [self adjustButtonForiOS7:button left:NO];
     [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
@@ -75,10 +77,50 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.adjustsImageWhenHighlighted = NO;
     button.frame = CGRectMake(0, 0, 44.0f, 44.0f);
-    button.titleLabel.textColor=[UIColor whiteColor];
+    button.titleLabel.textColor=APP_FONT_BLUE;
     button.titleLabel.font=[UIFont systemFontOfSize:16.0f];
     [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:APP_FONT_BLUE forState:UIControlStateNormal];
     [button setTitleColor:RGBCOLOR(60, 193, 102) forState:UIControlStateHighlighted];
+    
+    [self adjustButtonForiOS7:button left:YES];
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+- (void)addLeftTitleButtonForDown:(NSString*)title action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.adjustsImageWhenHighlighted = NO;
+    button.frame = CGRectMake(0, 0, 44.0f, 44.0f);
+    button.titleLabel.textColor=APP_FONT_BLUE;
+    button.titleLabel.font=[UIFont systemFontOfSize:16.0f];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:APP_FONT_BLUE forState:UIControlStateNormal];
+    [button setTitleColor:RGBCOLOR(60, 193, 102) forState:UIControlStateHighlighted];
+    UIImageView* up=[[UIImageView alloc]initWithFrame:CGRectMake(32, 16, 12, 12)];
+    [up setImage:[UIImage imageNamed:@"ic_nav_down_s"]];
+    [button addSubview:up];
+    
+    [self adjustButtonForiOS7:button left:YES];
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
+- (void)addLeftTitleButtonForUp:(NSString*)title action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.adjustsImageWhenHighlighted = NO;
+    button.frame = CGRectMake(0, 0, 44.0f, 44.0f);
+    button.titleLabel.textColor=APP_FONT_BLUE;
+    button.titleLabel.font=[UIFont systemFontOfSize:16.0f];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:APP_FONT_BLUE forState:UIControlStateNormal];
+    [button setTitleColor:RGBCOLOR(60, 193, 102) forState:UIControlStateHighlighted];
+    UIImageView* up=[[UIImageView alloc]initWithFrame:CGRectMake(32, 16, 12, 12)];
+    [up setImage:[UIImage imageNamed:@"ic_nav_up_s"]];
+    [button addSubview:up];
+    
     [self adjustButtonForiOS7:button left:YES];
     [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
@@ -107,6 +149,19 @@
         }
     }
 }
+
+- (void)addRightMenuButton:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.adjustsImageWhenHighlighted = NO;
+    button.frame = CGRectMake(0, 0, 44.0f, 44.0f);
+    [self adjustButtonForiOS7:button left:NO];
+    [button setImage:[UIImage imageNamed:@"ic_nav_menu"] forState:UIControlStateNormal];
+    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+}
+
 - (void)addRightSearchButton:(SEL)action
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -1,0 +1,8 @@
+ [
+  {
+  "id":0,"title":"荣誉名称","type":"99"},{
+  "id":1,"title":"组织名称","type":"0","value":"orgName","prompt":"请输入组织名称","request":1},{
+  "id":2,"title":"职位","type":"0","value":"officeName","prompt":"请输入职位","request":1},{
+  "id":3,"title":"时间","type":"6","value":"beginTime","valueCode":"endTime","prompt":"请选择时间","request":1},{
+  "id":4,"title":"工作内容简介","type":"7","value":"content","action":"添加"}
+  ]

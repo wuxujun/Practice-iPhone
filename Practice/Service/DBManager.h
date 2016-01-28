@@ -16,4 +16,34 @@
 -(NSArray*)queryCityForCode:(NSInteger)code;
 - (BOOL)insertOrUpdateCity:(NSDictionary *)info;
 
+-(NSInteger)queryCountForID:(NSInteger)cid  forTableName:(NSString*)name;
+
+-(NSArray*)queryCategory:(NSString*)parentId;
+-(NSArray*)queryCategoryForParentCode:(NSString*)parentId;
+
+- (BOOL)insertOrUpdateCategory:(NSDictionary *)info;
+
+-(NSArray*)queryCompanyForID:(NSInteger)cid;
+- (BOOL)insertOrUpdateCompany:(NSDictionary *)info;
+
+
+-(NSArray*)queryEduForCityId:(NSString*)cityId;
+- (BOOL)insertOrUpdateEdu:(NSDictionary *)info;
+
+
+-(NSArray*)queryNearbyForCityId:(NSString*)cityId;
+- (BOOL)insertOrUpdateNearby:(NSDictionary *)info;
+
+
+-(NSArray*)queryParamForType:(NSInteger)type;
+- (BOOL)insertOrUpdateParam:(NSDictionary *)info;
+
+
+-(NSArray*)queryPhotoForIsUpload:(NSInteger)isUpload;
+-(NSArray*)queryPhoto;
+- (BOOL)insertOrUpdatePhoto:(NSDictionary *)info;
+
+-(NSArray*)querySearchHis;
+- (BOOL)insertOrUpdateSearchHis:(NSDictionary *)info;
+
 @end

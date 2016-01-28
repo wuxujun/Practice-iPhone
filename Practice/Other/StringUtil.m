@@ -260,6 +260,19 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     return days;
 }
 
++(NSInteger)dateWithDaysForBegin:(NSString *)beginTime  forEnd:(NSString*)endTime
+{
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate* endDate=[dateFormatter dateFromString:endTime];
+    NSDate* beginDate=[dateFormatter dateFromString:beginTime];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    unsigned int unitFlag = NSDayCalendarUnit;
+    NSDateComponents *components = [calendar components:unitFlag fromDate:beginDate toDate:endDate options:0];
+    NSInteger days = [components day];
+    return days;
+}
+
 +(NSString *)ToHex:(int)tmpid
 {
     NSString *nLetterValue;

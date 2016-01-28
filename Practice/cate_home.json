@@ -1,0 +1,19 @@
+[
+  {
+  "id":1,"title":"翻译/语言","valueKey":"conf_area_code","value":"103001"
+  },{
+  "id":2,"title":"教育","valueKey":"conf_area_code","value":"103002"
+  },{
+  "id":3,"title":"传媒","valueKey":"conf_area_code","value":"103005"
+  },{
+  "id":4,"title":"工商管理","valueKey":"conf_area_code","value":"104001"
+ },{
+ "id":5,"title":"市场营销","valueKey":"conf_area_code","value":"104002"
+ },{
+ "id":6,"title":"会计/金融","valueKey":"conf_area_code","value":"104003"
+ },{
+ "id":7,"title":"人力资源","valueKey":"conf_area_code","value":"104004"
+ },{
+ "id":8,"title":"信息管理","valueKey":"conf_area_code","value":"104006"
+ }
+  ]
