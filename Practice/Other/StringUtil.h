@@ -33,6 +33,10 @@
 +(NSInteger)dateWithDaysForBegin:(NSString *)beginTime  forEnd:(NSString*)endTime;
 
 +(NSString *)ToHex:(int)tmpid;
+
++(UIColor*)colorWithHexString:(NSString*)color;
++(UIColor*)colorWithHexString:(NSString*)color alpha:(CGFloat)alpha;
+
 @end
 
 

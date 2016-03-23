@@ -9,7 +9,7 @@
 #import "EditViewPop.h"
 #import "UIButton+Bootstrap.h"
 
-#define CONTAINER_BG_COLOR      RGBACOLOR(0, 0, 0, 0.1f)
+#define CONTAINER_BG_COLOR      RGBACOLOR(0, 0, 0, 0.2f)
 #define MENU_ITEM_HEIGHT        200
 #define FONT_SIZE               18
 #define CELL_IDENTIGIER         @"MenuPopoverCell"

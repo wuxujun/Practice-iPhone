@@ -105,18 +105,24 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
     cell.backgroundColor=[UIColor whiteColor];
+    NSString* type=@"0";
+    if (self.infoDict) {
+        type=[self.infoDict objectForKey:@"type"];
+    }
     switch (indexPath.section) {
         case 0:
         {
             
-            UILabel* name=[[UILabel alloc]initWithFrame:CGRectMake(20, 106, SCREEN_WIDTH-40, 40)];
+            UILabel* name=[[UILabel alloc]initWithFrame:CGRectMake(0, 4,self.frame.size.width, 40)];
             [name setTextColor:APP_FONT_COLOR];
-            [name setFont:[UIFont systemFontOfSize:20]];
+            [name setFont:[UIFont systemFontOfSize:18]];
             [name setTextAlignment:NSTextAlignmentCenter];
             [name setText:@"投递成功"];
+            if (self.infoDict) {
+                [name setText:[self.infoDict objectForKey:@"msg"]];
+            }
             [cell addSubview:name];
-            
-            
+        
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
             break;
@@ -133,16 +139,22 @@
                 btn.tag=i;
                 switch (idx) {
                     case 0:
-                        [btn.titleLabel setFont:[UIFont systemFontOfSize:16.0]];
+                        [btn.titleLabel setFont:[UIFont boldSystemFontOfSize:16.0]];
                         [btn setTitle:@"查看已投岗位" forState:UIControlStateNormal];
+                        if ([type isEqualToString:@"1"]) {
+                            [btn setTitle:@"直接投递" forState:UIControlStateNormal];
+                        }
                         break;
                     case 1:
-                        [btn.titleLabel setFont:[UIFont boldSystemFontOfSize:16.0]];
+                        [btn.titleLabel setFont:[UIFont systemFontOfSize:16.0]];
                         [btn setTitle:@"完成" forState:UIControlStateNormal];
+                        if ([type isEqualToString:@"1"]) {
+                            [btn setTitle:@"去修改" forState:UIControlStateNormal];
+                        }
                         break;
                 }
                 [btn setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-                [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
                 [btn addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
                 int col=i%2;
                 if (col<1) {

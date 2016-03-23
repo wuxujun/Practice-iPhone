@@ -41,7 +41,8 @@
 
 -(NSArray*)queryPhotoForIsUpload:(NSInteger)isUpload;
 -(NSArray*)queryPhoto;
-- (BOOL)insertOrUpdatePhoto:(NSDictionary *)info;
+-(BOOL)deletePhotoForId:(NSInteger)pid;
+-(BOOL)insertOrUpdatePhoto:(NSDictionary *)info;
 
 -(NSArray*)querySearchHis;
 - (BOOL)insertOrUpdateSearchHis:(NSDictionary *)info;

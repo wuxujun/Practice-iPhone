@@ -10,4 +10,7 @@
 
 @interface WebViewController : BViewController
 
+
+@property(nonatomic,strong)NSDictionary* dataDict;
+
 @end

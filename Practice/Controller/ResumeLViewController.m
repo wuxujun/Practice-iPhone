@@ -10,6 +10,7 @@
 #import "UIViewController+NavigationBarButton.h"
 #import "ResumeEViewController.h"
 #import "UIView+LoadingView.h"
+#import "WebViewController.h"
 
 @interface ResumeLViewController ()
 
@@ -134,6 +135,18 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    NSDictionary* dic=[self.data objectAtIndex:indexPath.row];
+    if (dic) {
+        WebViewController* dController=[[WebViewController alloc]init];
+        dController.infoDict=self.infoDict;
+        dController.dataDict=dic;
+        [self.navigationController pushViewController:dController animated:YES];
+    }
+}
 
 
 @end

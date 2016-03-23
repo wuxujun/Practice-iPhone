@@ -14,6 +14,7 @@
 #import "DBHelper.h"
 #import "CategoryEntity.h"
 #import "OfficeViewCell.h"
+#import "SearchViewController.h"
 #import "OfficeViewController.h"
 
 
@@ -76,7 +77,8 @@
 
 -(IBAction)onSearch:(id)sender
 {
-    
+    SearchViewController *dController = [[SearchViewController alloc] init];
+    [self.navigationController pushViewController:dController animated:YES];
 }
 
 -(void)initHeadView

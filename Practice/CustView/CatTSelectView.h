@@ -19,7 +19,10 @@
 
 -(id)initWithFrame:(CGRect)frame delegate:(id)aDelegate;
 -(void)showInView:(UIView*)view;
+-(void)showInHeadView:(UIView*)view;
+
 -(void)dismissPopover;
+-(void)hide;
 -(void)layoutUIForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 -(void)reload;
@@ -31,4 +34,5 @@
 
 -(void)onCatTSelectViewClicked:(CatTSelectView*)view code:(NSString*)aCode title:(NSString*)aTitle;
 
+-(void)onCatTSelectViewClicked:(CatTSelectView*)view datas:(NSMutableDictionary*)data;
 @end

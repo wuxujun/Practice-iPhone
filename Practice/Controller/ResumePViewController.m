@@ -14,6 +14,7 @@
 #import "PhotoEntity.h"
 #import "DBManager.h"
 #import "DBHelper.h"
+#import "ResumePreviewController.h"
 #import "UIView+LoadingView.h"
 
 @interface ResumePViewController ()<TZImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
@@ -140,7 +141,10 @@
     if (indexPath.row == _selectedPhotos.count){
         [self pickPhotoButtonClick:nil];
     }
-    DLog(@"%d",indexPath.row);
+    ResumePreviewController* dController=[[ResumePreviewController alloc]init];
+    dController.photoArr=_selectedPhotos;
+    dController.currentIndex=indexPath.row;
+    [self.navigationController pushViewController:dController animated:YES];
 }
 
 

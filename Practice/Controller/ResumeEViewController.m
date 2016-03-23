@@ -18,6 +18,7 @@
 #import "SIAlertView.h"
 #import "HCurrentUserContext.h"
 #import "UIView+LoadingView.h"
+#import "UserDefaultHelper.h"
 
 
 @interface ResumeEViewController ()<UITextFieldDelegate,CatSelectViewDelegate,CatTSelectViewDelegate,DatePopDelegate,DateTwoPopDelegate,EditViewPopDelegate>
@@ -32,7 +33,7 @@
     [super viewDidLoad];
     self.inputValues=[[NSMutableArray alloc]init];
     self.inputDataDict=[[NSMutableDictionary alloc]init];
-    
+    [UserDefaultHelper setObject:[NSNumber numberWithInt:0] forKey:CONF_POPVIEW_CHECKBOX];
     [self addBackBarButton];
     // Do any additional setup after loading the view.
     
@@ -55,6 +56,8 @@
 -(IBAction)onSave:(id)sender
 {
     DLog(@"%@ %@",[self.infoDict objectForKey:@"actionUrl"],self.inputDataDict);
+    [[(HKeyboardTableView*)self.mTableView findFirstResponderBeneathView:self.mTableView] resignFirstResponder];
+    
     BOOL isSave=true;
     NSString* result=@"";
     for (int i=0; i<[self.data count]; i++) {
@@ -117,6 +120,9 @@
                     if ([[dic objectForKey:@"value"] isEqualToString:@"mobile"]) {
                         [self.inputDataDict setObject:[[HCurrentUserContext sharedInstance] username] forKey:[dic objectForKey:@"value"]];
                     }
+                    if ([[dic objectForKey:@"value"] isEqualToString:@"email"]&&[[HCurrentUserContext sharedInstance] email]) {
+                        [self.inputDataDict setObject:[[HCurrentUserContext sharedInstance] email] forKey:[dic objectForKey:@"value"]];
+                    }
                 }else if([type isEqualToString:@"3"]||[type isEqualToString:@"6"]){
                     [self.inputDataDict setObject:@"" forKey:[dic objectForKey:@"value"]];
                     [self.inputDataDict setObject:@"" forKey:[dic objectForKey:@"valueCode"]];
@@ -127,6 +133,30 @@
     if ([[self.infoDict objectForKey:@"actionUrl"] isEqualToString:@"addMemberResume"]) {
         NSMutableDictionary* dict=[[NSMutableDictionary alloc]init];
         NSString * requestUrl=[NSString stringWithFormat:@"%@%@",kHttpUrl,[self.infoDict objectForKey:@"listUrl"]];
+        [self.networkEngine postOperationWithURLString:requestUrl params:dict success:^(MKNetworkOperation *completedOperation, id result) {
+            NSDictionary* rs=(NSDictionary*)result;
+            DLog(@"%@",rs);
+            id array=[rs objectForKey:@"root"];
+            if ([array isKindOfClass:[NSArray class]]) {
+                if ([array count]>0) {
+                    NSDictionary *dc=[array objectAtIndex:0];
+                    for (NSString *key in dc) {
+                        NSLog(@"key: %@ value: %@", key, dc[key]);
+                        if ([self.inputDataDict objectForKey:key]) {
+                            [self.inputDataDict setObject:dc[key] forKey:key];
+                        }
+                    }
+                    NSLog(@"%@",self.inputDataDict);
+                    [self.mTableView reloadData];
+                }
+            }
+            
+        } error:^(NSError *error) {
+            
+        }];
+    }else if([[self.infoDict objectForKey:@"actionUrl"] isEqualToString:@"updateUser"]){
+        NSMutableDictionary* dict=[[NSMutableDictionary alloc]init];
+        NSString * requestUrl=[NSString stringWithFormat:@"%@%@",kHttpUrl,@"memberInfo"];
         [self.networkEngine postOperationWithURLString:requestUrl params:dict success:^(MKNetworkOperation *completedOperation, id result) {
             NSDictionary* rs=(NSDictionary*)result;
             DLog(@"%@",rs);
@@ -352,14 +382,14 @@
     if ([type isEqualToString:@"2"]) {
         [self didChangeDate:indexPath.row];
     }else if([type isEqualToString:@"3"]){
-        if ([[dic objectForKey:@"value"] isEqualToString:@"educational"]||[[dic objectForKey:@"value"] isEqualToString:@"level"]) {
-            CatSelectView* sheetView=[[CatSelectView alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT/2, SCREEN_WIDTH-20, SCREEN_HEIGHT/2) delegate:self ];
+        if ([[dic objectForKey:@"value"] isEqualToString:@"educational"]||[[dic objectForKey:@"value"] isEqualToString:@"grade"]||[[dic objectForKey:@"value"] isEqualToString:@"level"]) {
+            CatSelectView* sheetView=[[CatSelectView alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT/2-2, SCREEN_WIDTH-20, SCREEN_HEIGHT/2) delegate:self ];
             [sheetView setTag:indexPath.row];
             sheetView.infoDict=dic;
             [sheetView reload];
             [sheetView showInView:self.view];
         }else{
-            CatTSelectView* sheetView=[[CatTSelectView alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT/2, SCREEN_WIDTH-20, SCREEN_HEIGHT/2) delegate:self];
+            CatTSelectView* sheetView=[[CatTSelectView alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT/2-2, SCREEN_WIDTH-20, SCREEN_HEIGHT/2) delegate:self];
             [sheetView setTag:indexPath.row];
             sheetView.infoDict=dic;
             [sheetView reload];
@@ -383,7 +413,7 @@
 -(void)didChangeDate:(NSInteger)tag
 {
     NSDictionary* dic=[self.data objectAtIndex:tag];
-    DatePop* dateView=[[DatePop alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT-244, SCREEN_WIDTH-20, 244) delegate:self];
+    DatePop* dateView=[[DatePop alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT-264, SCREEN_WIDTH-20, 264) delegate:self];
     [dateView setDateType:[[dic objectForKey:@"dateType"] integerValue]];
     [dateView setTag:tag];
     [dateView showInView:self.view];

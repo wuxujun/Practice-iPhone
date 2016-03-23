@@ -8,6 +8,7 @@
 
 #import "AttentionEViewController.h"
 #import "UIViewController+NavigationBarButton.h"
+#import "UserDefaultHelper.h"
 #import "CateHeadView.h"
 #import "HKeyboardTableView.h"
 #import "CatSelectView.h"
@@ -34,7 +35,7 @@
     self.inputDataDict=[[NSMutableDictionary alloc]init];
     [self addBackBarButton];
     // Do any additional setup after loading the view.
-    
+    [UserDefaultHelper setObject:[NSNumber numberWithInt:1] forKey:CONF_POPVIEW_CHECKBOX];
     self.isEdit=false;
     [self addRightTitleButton:@"编辑" action:@selector(onSave:)];
     
@@ -52,6 +53,7 @@
 
 -(IBAction)onSave:(id)sender
 {
+    [[(HKeyboardTableView*)self.mTableView findFirstResponderBeneathView:self.mTableView] resignFirstResponder];
     if (!self.isEdit) {
         self.isEdit=true;
         [self addRightTitleButton:@"保存" action:@selector(onSave:)];
@@ -91,6 +93,12 @@
 {
     [super viewWillAppear:animated];
     [self.view showHUDLoadingView:YES];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [UserDefaultHelper setObject:[NSNumber numberWithInt:0] forKey:CONF_POPVIEW_CHECKBOX];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -229,13 +237,13 @@
     NSString* value=[dic objectForKey:@"value"];
     if([type isEqualToString:@"3"]){
         if ([value isEqualToString:@"workType"]||[value isEqualToString:@"grade"]||[value isEqualToString:@"isSave"]||[value isEqualToString:@"workExp"]||[value isEqualToString:@"companyType"]||[value isEqualToString:@"industry"]||[value isEqualToString:@"office"]) {
-            CatSelectView* sheetView=[[CatSelectView alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT/2+88, SCREEN_WIDTH-20, SCREEN_HEIGHT/2-88) delegate:self ];
+            CatSelectView* sheetView=[[CatSelectView alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT/2-5, SCREEN_WIDTH-20, SCREEN_HEIGHT/2) delegate:self ];
             [sheetView setTag:indexPath.row];
             sheetView.infoDict=dic;
             [sheetView reload];
             [sheetView showInView:self.view];
         }else{
-            CatTSelectView* sheetView=[[CatTSelectView alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT/2, SCREEN_WIDTH-20, SCREEN_HEIGHT/2) delegate:self];
+            CatTSelectView* sheetView=[[CatTSelectView alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT/2-5, SCREEN_WIDTH-20, SCREEN_HEIGHT/2) delegate:self];
             [sheetView setTag:indexPath.row];
             sheetView.infoDict=dic;
             [sheetView reload];
@@ -285,6 +293,60 @@
         [self.mTableView reloadData];
     }
     [view dismissPopover];
+}
+
+-(void)onCatSelectViewClicked:(CatSelectView *)view datas:(NSMutableDictionary *)data
+{
+    NSDictionary* dic=[self.data objectAtIndex:view.tag];
+    if (dic) {
+        NSMutableString *codes=[[NSMutableString alloc]init];
+        NSMutableString* titles=[[NSMutableString alloc]init];
+        for (NSString* key in data) {
+            NSDictionary* dc=[data objectForKey:key];
+            if (dc) {
+                [titles appendString:[dc objectForKey:@"title"]];
+                [titles appendString:@","];
+                [codes appendString:[dc objectForKey:@"code"]];
+                [codes appendString:@","];
+            }
+        }
+        if (titles.length>0) {
+            [self.inputDataDict setObject:[titles substringToIndex:titles.length-1] forKey:[dic objectForKey:@"value"]];
+        }
+        if (codes.length>0) {
+            [self.inputDataDict setObject:[codes substringToIndex:codes.length-1] forKey:[dic objectForKey:@"valueCode"]];
+        }
+        [self.mTableView reloadData];
+    }
+    
+    [view hide];
+}
+
+-(void)onCatTSelectViewClicked:(CatTSelectView *)view datas:(NSMutableDictionary *)data
+{
+    NSDictionary* dic=[self.data objectAtIndex:view.tag];
+    if (dic) {
+        NSMutableString *codes=[[NSMutableString alloc]init];
+        NSMutableString* titles=[[NSMutableString alloc]init];
+        for (NSString* key in data) {
+            NSDictionary* dc=[data objectForKey:key];
+            if (dc) {
+                [titles appendString:[dc objectForKey:@"title"]];
+                [titles appendString:@","];
+                [codes appendString:[dc objectForKey:@"code"]];
+                [codes appendString:@","];
+            }
+        }
+        if (titles.length>0) {
+            [self.inputDataDict setObject:[titles substringToIndex:titles.length-1] forKey:[dic objectForKey:@"value"]];
+        }
+        if (codes.length>0) {
+            [self.inputDataDict setObject:[codes substringToIndex:codes.length-1] forKey:[dic objectForKey:@"valueCode"]];
+        }
+        [self.mTableView reloadData];
+    }
+    
+    [view hide];
 }
 
 #pragma mark - UITextFieldDelegate

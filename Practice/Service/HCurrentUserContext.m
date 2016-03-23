@@ -72,6 +72,7 @@ static HCurrentUserContext *sharedHCurrentUserContext = nil;
             NSDictionary *userDict = resultDict[@"data"];
             myself.uid = userDict[@"id"];
             myself.username = userDict[@"mobile"];
+            myself.email=userDict[@"email"];
             myself.isReport = [userDict[@"isReport"] boolValue];
             myself.reportArea = userDict[@"reportArea"];
             myself.imageUrl = userDict[@"image"];
@@ -93,9 +94,19 @@ static HCurrentUserContext *sharedHCurrentUserContext = nil;
     NSString *url = [NSString stringWithFormat:@"%@register",kHttpUrl];
     [self.networkEngine postOperationWithURLString:url params:params success:^(MKNetworkOperation *completedOperation, id result) {
         NSDictionary *resultDict = result;
+        DLog(@"registerWithUserName  %@",result);
         BOOL isSuccess = [resultDict[@"success"] boolValue];
         if (isSuccess) {
-            successBlock(isSuccess);
+            BOOL isExist=[resultDict[@"isExist"] boolValue];
+            if (isExist) {
+                NSString *message = [result objectForKey:@"errorMsg"] ? : @"注册发生错误";
+                NSError *error = [NSError errorWithDomain:message code:-1 userInfo:nil];
+                if (errorBlock != nil) {
+                    errorBlock(error);
+                }
+            }else{
+                successBlock(isSuccess);
+            }
         } else {
             NSString *message = [result objectForKey:@"errorMsg"] ? : @"注册发生错误";
             NSError *error = [NSError errorWithDomain:message code:-1 userInfo:nil];

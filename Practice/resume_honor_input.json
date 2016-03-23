@@ -3,5 +3,5 @@
  "id":0,"title":"荣誉名称","type":"99"},{
  "id":1,"title":"荣誉名称","type":"0","value":"title","request":1},{
  "id":2,"title":"获取时间","type":"6","value":"beginTime","valueCode":"endTime","request":1},{
- "id":3,"title":"荣誉详情","type":"10","value":"msg","action":"添加"}
+ "id":3,"title":"荣誉详情","type":"10","value":"msg","prompt":"请输入荣誉详情","request":1,"action":"添加"}
  ]

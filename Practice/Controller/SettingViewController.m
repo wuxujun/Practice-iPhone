@@ -132,9 +132,12 @@
             [loginBtn setTitleColor:APP_FONT_COLOR forState:UIControlStateNormal];
             [loginBtn addTarget:self action:@selector(onLogout:) forControlEvents:UIControlEventTouchUpInside];
             [loginBtn blueStyle];
+            [loginBtn setEnabled:NO];
             if ([[HCurrentUserContext sharedInstance] uid]) {
-                [cell addSubview:loginBtn];
+                [loginBtn setTitle:@"用户注销" forState:UIControlStateNormal];
+                [loginBtn setEnabled:YES];
             }
+            [cell addSubview:loginBtn];
         }
     }
     

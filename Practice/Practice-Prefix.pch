@@ -38,13 +38,13 @@ typedef enum{
 #define APPSECRET_WEIBO     @"6edd97b068547492519b8eefa084f344"
 #define REDIRECTURI_WEIBO   @"https://hlterm.oicp.net/openapi/ability/index.php/Micblog/callback"
 
-#define APPKEY_QQ      @"100334902"
-#define APPKEY_QQ_SECRET    @""
+#define APPKEY_QQ           @"100334902"
+#define APPKEY_QQ_SECRET    @"c4b60d276b112c4aee8c30bbe62b1286"
+
 #define kHttpUrl @"http://sx.asiainstitute.cn/index.php?/ums/"
 
-
-#define APPKEY_WEIXIN        @"2846029855"
-#define APPKEY_WEIXIN_SECRET     @"6edd97b068547492519b8eefa084f344"
+#define APPKEY_WEIXIN        @"wx7b3c49ed03390fb2"
+#define APPKEY_WEIXIN_SECRET     @"232c9d206dbe83a905294ad00d0b8738"
 
 #define ApplicationDelegate                 ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
@@ -90,6 +90,9 @@ typedef enum{
 
 #define APP_FONT_BLUE           RGBCOLOR(31,73,125)
 #define APP_LIST_ITEM_BG        RGBCOLOR(232,232,232)
+#define APP_LIST_HEAD_BG        RGBCOLOR(240,239,245)
+
+#define APP_FONT_LIST_D         RGBCOLOR(240,20,63)
 
 #define SYSTEM_SMALL_FONT   @"small font"
 #define SYSTEM_LARGE_FONT   @"large font"
@@ -120,6 +123,7 @@ typedef enum{
 
 #define CONF_CURRENT_CITYNAME       @"conf_current_city_name"
 #define CONF_CURRENT_CITYCODE       @"conf_current_city_code"
+#define CONF_POPVIEW_CHECKBOX       @"conf_popview_checkbox"
 
 #define CONF_CURRENT_LONGITUDE      @"conf_current_longitude"
 #define CONF_CURRENT_LATITUDE       @"conf_current_latitude"

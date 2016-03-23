@@ -8,8 +8,9 @@
 
 #import "CompanyHeadView.h"
 #import "HCurrentUserContext.h"
+#import "UIImageView+AFNetworking.h"
 
-#define ITEM_HEIGHT    34.0
+#define ITEM_HEIGHT    30.0
 
 @interface CompanyHeadView()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -88,20 +89,25 @@
         {
             UIImageView * img=[[UIImageView alloc]initWithFrame:CGRectMake(10, (80-64)/2, 64, 64)];
             [img setImage:[UIImage imageNamed:@"logo.png"]];
+            if ([self.infoDict objectForKey:@"logo"]) {
+                [img setImageWithURL:[NSURL URLWithString:[self.infoDict objectForKey:@"logo"]] placeholderImage:[UIImage imageNamed:@"logo"]];
+            }
             [cell addSubview:img];
             
             UILabel* name=[[UILabel alloc]initWithFrame:CGRectMake(80, (80-40)/2, SCREEN_WIDTH-90, 40)];
             [name setTextColor:APP_FONT_COLOR];
             [name setFont:[UIFont systemFontOfSize:18]];
-            [name setText:@"公司名称"];
+            if ([self.infoDict objectForKey:@"companyName"]) {
+                [name setText:[self.infoDict objectForKey:@"companyName"]];
+            }
             [cell addSubview:name];
             
             
-            UIButton* btn=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-60, (80-36)/2, 36, 36)];
-            [btn setImage:[UIImage imageNamed:@"ic_fav.png"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"ic_fav_sel.png"] forState:UIControlStateHighlighted];
-            [btn addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:btn];
+//            UIButton* btn=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-60, (80-36)/2, 36, 36)];
+//            [btn setImage:[UIImage imageNamed:@"ic_fav.png"] forState:UIControlStateNormal];
+//            [btn setImage:[UIImage imageNamed:@"ic_fav_sel.png"] forState:UIControlStateHighlighted];
+//            [btn addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
+//            [cell addSubview:btn];
             
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
@@ -109,16 +115,23 @@
             
         default:
         {
-            cell.textLabel.font=[UIFont systemFontOfSize:16.0];
+            cell.textLabel.font=[UIFont systemFontOfSize:14.0];
+            UILabel* lb1=[[UILabel alloc]initWithFrame:CGRectMake(60, 0, SCREEN_WIDTH-100, 30)];
+            [lb1 setTextColor:APP_FONT_COLOR];
+            [lb1 setFont:[UIFont systemFontOfSize:14]];
+            
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text=@"地址";
+                    [lb1 setText:[self.infoDict objectForKey:@"companyAddr"]];
                     break;
                 case 1:
                     cell.textLabel.text=@"行业";
+                     [lb1 setText:[self.infoDict objectForKey:@"companyCate"]];
                     break;
                 case 2:
                     cell.textLabel.text=@"性质";
+                    [lb1 setText:[self.infoDict objectForKey:@"scale"]];
                     break;
                 case 3:
                     cell.textLabel.text=@"规模";
@@ -126,11 +139,6 @@
                 default:
                     break;
             }
-            
-            UILabel* lb1=[[UILabel alloc]initWithFrame:CGRectMake(80, 0, SCREEN_WIDTH-100, 34)];
-            [lb1 setTextColor:APP_FONT_COLOR];
-            [lb1 setFont:[UIFont systemFontOfSize:15]];
-            [lb1 setText:@"上海"];
             [cell addSubview:lb1];
             
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];

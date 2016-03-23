@@ -9,6 +9,7 @@
 #import "OfficeViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIImageView+AFNetworking.h"
+#import "StringUtil.h"
 
 @implementation OfficeViewCell
 @synthesize infoDict;
@@ -49,7 +50,7 @@
     descLabel=[[UILabel alloc]init];
     [descLabel setText:@"工资:200元/天 超过800元/月扣税"];
     [descLabel setFont:[UIFont systemFontOfSize:14.0f]];
-    [descLabel setTextColor:[UIColor grayColor]];
+    [descLabel setTextColor:APP_FONT_COLOR];
     [contentView addSubview:descLabel];
 
     [self addSubview:contentView];
@@ -84,6 +85,24 @@
     }
     if ([infoDict objectForKey:@"content"]) {
         [titleLabel setText:[infoDict objectForKey:@"content"]];
+    }
+    if ([infoDict objectForKey:@"companyName"]) {
+        [companyLabel setText:[infoDict objectForKey:@"companyName"]];
+    }
+    if ([infoDict objectForKey:@"logo"]) {
+        [iconView setImageWithURL:[NSURL URLWithString:[infoDict objectForKey:@"logo"]] placeholderImage:[UIImage imageNamed:@"logo"]];
+    }
+    if ([infoDict objectForKey:@"status"]) {
+        NSString* status=[infoDict objectForKey:@"status"];
+        if ([status isEqualToString:@"1"]) {
+            [descLabel setText:@"状态:面试阶段"];
+        }else if([status isEqualToString:@"0"]){
+            [descLabel setText:@"状态:申请中"];
+        }else if([status isEqualToString:@"2"]){
+            [descLabel setText:@"状态:已通知入职"];
+        }else if([status isEqualToString:@"3"]){
+            [descLabel setText:@"状态:已被拒绝"];
+        }
     }
     
     [self setNeedsDisplay];

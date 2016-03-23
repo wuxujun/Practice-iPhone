@@ -103,13 +103,13 @@
 {
     if (section==1) {
         UIView * view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 42.0)];
-        [view setBackgroundColor:APP_LIST_ITEM_BG];
+        [view setBackgroundColor:APP_LIST_HEAD_BG];
         UIView* bg=[[UIView alloc]initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 36.5)];
         [bg setBackgroundColor:[UIColor clearColor]];
-        UILabel* lb=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, SCREEN_WIDTH-20, 36.5)];
+        UILabel* lb=[[UILabel alloc]initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH-20, 36.5)];
         [lb setBackgroundColor:[UIColor clearColor]];
         [lb setText:@"简历模板"];
-        [lb setFont:[UIFont boldSystemFontOfSize:16.0]];
+        [lb setFont:[UIFont systemFontOfSize:16.0]];
         [bg addSubview:lb];
         [view addSubview:bg];
         return view;

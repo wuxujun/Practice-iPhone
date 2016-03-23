@@ -17,5 +17,7 @@
 }
 
 - (void)adjustOffsetToIdealIfNeeded;
+- (UIView*)findFirstResponderBeneathView:(UIView*)view;
+
 
 @end

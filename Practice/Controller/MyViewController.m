@@ -150,7 +150,7 @@
         case 0:
         {
             ListViewController* dController=[[ListViewController alloc]init];
-            dController.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"我的实习",@"title", nil];
+            dController.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"我的实习",@"title",@"myOffice",@"actionUrl",  nil];
             dController.hidesBottomBarWhenPushed=YES;
             [self.navigationController pushViewController:dController animated:YES];
             break;

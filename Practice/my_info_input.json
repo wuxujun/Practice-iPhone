@@ -4,12 +4,12 @@
  "id":2,"title":"昵称","type":"0","value":"userName","prompt":"请输入昵称","request":1},{
   "id":3,"title":"手机号","type":"0","value":"mobile","prompt":"请输入手机号","request":1},{
   "id":4,"title":"密码","type":"8","value":"password","request":0},{
- "id":5,"title":"邮箱","type":"0","value":"email","prompt":"请输入邮箱","request":1},{
+ "id":5,"title":"常用邮箱","type":"0","value":"email","prompt":"请输入邮箱","request":1},{
  "id":6,"title":"第三方帐号绑定","type":"5","value":"020","request":0},{
  "id":7,"title":"空","type":"99","value":"020","request":0},{
  "id":8,"title":"性别","type":"1","value":"sex","request":1,"data":[{"title":"女","value":"0"},{"title":"男","value":"1"}]},{
  "id":9,"title":"出生日期","type":"2","value":"brithday","dateType":"yyyy-MM-dd","prompt":"请选择日期","request":1},{
  "id":10,"title":"就读大学","type":"3","value":"school","valueCode":"schoolCode","paramValue":"school","prompt":"请选择就读大学","request":1},{
  "id":11,"title":"就读专业","type":"3","value":"specialty","valueCode":"specialtyCode","paramValue":"specialty","prompt":"请选择就读专业","request":1},{
- "id":12,"title":"年级","type":"3","value":"educational","valueCode":"educationalCode","paramValue":"3","prompt":"请选择年级","request":1}
+ "id":12,"title":"年级","type":"3","value":"grade","valueCode":"gradeCode","paramValue":"3","prompt":"请选择年级","request":1}
   ]

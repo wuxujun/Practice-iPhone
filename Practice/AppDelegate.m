@@ -17,16 +17,21 @@
 #import "StringUtil.h"
 #import "MobClick.h"
 
-#import "UMSocial.h"
-#import "UMSocialSnsService.h"
-#import "UMSocialWechatHandler.h"
-#import "UMSocialQQHandler.h"
-#import "UMSocialSinaHandler.h"
+#import <UMSocial.h>
+#import <UMSocialSnsService.h>
+#import <UMSocialWechatHandler.h>
+#import <UMSocialQQHandler.h>
+#import <UMSocialSinaSSOHandler.h>
 
 #import <GoogleAnalytics/GAIFields.h>
 #import <GoogleAnalytics/GAITracker.h>
 #import <GoogleAnalytics/GAIDictionaryBuilder.h>
 
+#import "WXApi.h"
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <SMS_SDK/SMSSDK.h>
+//#import <linkedin-sdk/LISDK.h>
 
 static NSString *const kTrackingId=@"UA-30968675-7";
 static NSString *const kAllowTracking=@"allowTracking";
@@ -78,10 +83,15 @@ static NSString *const kAllowTracking=@"allowTracking";
 
 -(void)initializePlat
 {
-//    [UMSocialWechatHandler setWXAppId:APPKEY_WEIXIN appSecret:APPKEY_WEIXIN_SECRET url:@"https://app.sholai.cn/"];
-//    [UMSocialQQHandler setQQWithAppId:APPKEY_QQ appKey:APPKEY_QQ_SECRET url:@"http://www.umeng.com/social"];
-//    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [SMSSDK registerApp:@"f5d3cb6558bc" withSecret:@"febc3eb7feca84d343661dd06a16db97"];
+    [UMSocialData setAppKey:@"55dd74a267e58e0dec0029ef"];
+
+    [UMSocialWechatHandler setWXAppId:APPKEY_WEIXIN appSecret:APPKEY_WEIXIN_SECRET url:@"https://app.sholai.cn/"];
+    [UMSocialQQHandler setSupportWebView:YES];
+    [UMSocialQQHandler setQQWithAppId:APPKEY_QQ appKey:APPKEY_QQ_SECRET url:@"http://www.umeng.com/social"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:APPKEY_WEIBO RedirectURL:@""];
     
+    [UserDefaultHelper setObject:[NSNumber numberWithInt:0] forKey:CONF_POPVIEW_CHECKBOX];
     [UserDefaultHelper setObject:@"310000" forKey:CONF_CURRENT_CITYCODE];
     [UserDefaultHelper setObject:@"上海" forKey:CONF_CURRENT_CITYNAME];
     
@@ -303,6 +313,19 @@ static NSString *const kAllowTracking=@"allowTracking";
     [self sendLocation];
     application.applicationIconBadgeNumber+=1;
     completionHandler(UIBackgroundFetchResultNewData);
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    NSLog(@"%s url=%@","app delegate application openURL called ", [url absoluteString]);
+//    if ([LISDKCallbackHandler shouldHandleUrl:url]) {
+//        return [LISDKCallbackHandler application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+//    }
+    BOOL result=[UMSocialSnsService handleOpenURL:url];
+    if (result==FALSE) {
+        
+    }
+    return result;
 }
 
 -(void)sendLocation

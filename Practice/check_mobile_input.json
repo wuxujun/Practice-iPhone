@@ -1,0 +1,11 @@
+[
+ {
+ "id":0,"title":"空","type":"99","value":"010","request":0},{
+ "id":1,"title":"空","type":"99","value":"010","request":0},{
+ "id":1,"title":"空","type":"99","value":"010","request":0},{
+  "id":2,"title":"手机号","type":"0","dataType":2,"value":"mobile","prompt":"请输入手机号","request":1},{
+ "id":3,"title":"验证码","type":"11","dataType":5,"value":"smscode","prompt":"验证码","request":1},{
+ "id":4,"title":"空","type":"99","value":"010","request":0},{
+ "id":4,"title":"空","type":"99","value":"010","request":0},{
+  "id":5,"title":"下一步","type":"30","value":"30","request":0}
+  ]

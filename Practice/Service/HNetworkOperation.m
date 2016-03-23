@@ -21,6 +21,7 @@
         params = [NSMutableDictionary dictionary];
     }
     [params setValue:DEVICE_UDID forKey:@"imei"];
+    [params setValue:DEVICE_UDID forKey:@"umeng_token"];
     [params setValue:@"ios" forKey:@"platform"];
     HCurrentUserContext *currentUser = [HCurrentUserContext sharedInstance];
     if ([currentUser hadLogin]) {

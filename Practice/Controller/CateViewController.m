@@ -18,8 +18,12 @@
 @interface CateViewController ()<CateHeadViewDelegate,OfficeViewCellDelegate,CatSelectViewDelegate,CatTSelectViewDelegate>
 {
     NSMutableArray          *headDatas;
+
+    BOOL                    bSelectView;
 }
 @property(nonatomic,strong)CateHeadView*    headView;
+@property(nonatomic,strong)CatTSelectView   *cateTSelectView;
+@property(nonatomic,strong)CatSelectView   *cateSelectView;
 
 @end
 
@@ -28,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     headDatas=[[NSMutableArray alloc]init];
-    
+    bSelectView=FALSE;
     [self addBackBarButton];
     // Do any additional setup after loading the view.
     if (self.mTableView==nil) {
@@ -41,6 +45,13 @@
     }
     if (self.infoDict) {
         [self setCenterTitle:[self.infoDict objectForKey:@"title"]];
+    }
+    
+    if (self.cateTSelectView==nil) {
+        self.cateTSelectView=[[CatTSelectView alloc]initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, 44*5) delegate:self];
+    }
+    if (self.cateSelectView==nil) {
+        self.cateSelectView=[[CatSelectView alloc]initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, 44*5) delegate:self];
     }
     
     [self initHeadView];
@@ -148,59 +159,63 @@
     switch (idx) {
         case 1:
         {
+            [self.cateSelectView dismissPopover];
             [self.headView selectButton:idx];
-            CatTSelectView* sheetView=[[CatTSelectView alloc]initWithFrame:CGRectMake(0, 104, SCREEN_WIDTH, 44*5) delegate:self];
-            [sheetView setTag:idx];
-            sheetView.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"1",@"paramValue",@"",@"prompt", nil];
-            [sheetView reload];
-            [sheetView showInView:self.view];
+            [self.cateTSelectView setTag:idx];
+            self.cateTSelectView.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"distance",@"paramValue",@"",@"prompt", nil];
+            [self.cateTSelectView reload];
+            [self.cateTSelectView showInView:self.mTableView];
         }
             break;
         case 2:
         {
+            
+            [self.cateSelectView dismissPopover];
             [self.headView selectButton:idx];
-            CatTSelectView* sheetView=[[CatTSelectView alloc]initWithFrame:CGRectMake(0,104, SCREEN_WIDTH, 44*5) delegate:self];
-            [sheetView setTag:idx];
-            sheetView.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"2",@"paramValue",@"",@"prompt", nil];
-            [sheetView reload];
-            [sheetView showInView:self.view];
+            [self.cateTSelectView setTag:idx];
+            self.cateTSelectView.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"reward",@"paramValue",@"",@"prompt", nil];
+            [self.cateTSelectView reload];
+            [self.cateTSelectView showInHeadView:self.mTableView];
         }
             break;
         case 3:
         {
+            [self.cateTSelectView dismissPopover];
             [self.headView selectButton:idx];
-            CatSelectView* sheetView=[[CatSelectView alloc]initWithFrame:CGRectMake(0,104, SCREEN_WIDTH, 44*5) delegate:self ];
-            [sheetView setTag:idx];
-            sheetView.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"2",@"paramValue",@"1",@"prompt", nil];
-            [sheetView reload];
-            [sheetView showInView:self.view];
+            [self.cateSelectView setTag:idx];
+            self.cateSelectView.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"2",@"paramValue",@"1",@"prompt", nil];
+            [self.cateSelectView reload];
+            [self.cateSelectView showInView:self.mTableView];
         }
             break;
         case 4:
         {
+            [self.cateTSelectView dismissPopover];
             [self.headView selectButton:idx];
-            CatSelectView* sheetView=[[CatSelectView alloc]initWithFrame:CGRectMake(0, 104, SCREEN_WIDTH, 44*6) delegate:self ];
-            [sheetView setTag:idx];
-            sheetView.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"7",@"paramValue",@"0",@"prompt", nil];
-            [sheetView reload];
-            [sheetView showInView:self.view];
+            [self.cateSelectView setTag:idx];
+            self.cateSelectView.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"7",@"paramValue",@"0",@"prompt", nil];
+            [self.cateSelectView reload];
+            [self.cateSelectView showInView:self.mTableView];
         }
     
             break;
         default:
             break;
     }
+    bSelectView=TRUE;
 }
 
 
 -(void)onCatSelectViewClicked:(CatSelectView *)view code:(NSString *)aCode title:(NSString *)aTitle
 {
     [view dismissPopover];
+    bSelectView=FALSE;
 }
 
 -(void)onCatTSelectViewClicked:(CatTSelectView *)view code:(NSString *)aCode title:(NSString *)aTitle
 {
     [view dismissPopover];
+    bSelectView=FALSE;
 }
 
 @end

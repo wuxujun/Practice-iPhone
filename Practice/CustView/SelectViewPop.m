@@ -18,7 +18,7 @@
 #define SEPERATOR_LINE_RECT     CGRectMake(10, MENU_ITEM_HEIGHT - 1, self.frame.size.width - 20, 0.5)
 #define MENU_POINTER_RECT       CGRectMake(frame.origin.x, frame.origin.y, 23, 11)
 
-#define CONTAINER_BG_COLOR      RGBA(0, 0, 0, 0.1f)
+#define CONTAINER_BG_COLOR      RGBA(0, 0, 0, 0.2f)
 
 #define ZERO                    0.0f
 #define ONE                     1.0f

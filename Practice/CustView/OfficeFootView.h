@@ -19,6 +19,8 @@
 
 -(id)initWithFrame:(CGRect)frame delegate:(id)aDelegate;
 
+-(void)setDataType:(NSInteger)dType;
+
 @end
 
 

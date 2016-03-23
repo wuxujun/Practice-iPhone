@@ -231,10 +231,11 @@
     }
     return 0.0;
 }
+
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UILabel * lb=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 34)];
-    [lb setText:@"      精彩推荐"];
+    [lb setText:@"     精彩推荐"];
     [lb setFont:[UIFont systemFontOfSize:16.0]];
     [lb setBackgroundColor:APP_LIST_ITEM_BG];
     if (section==1) {
@@ -290,6 +291,8 @@
 
 -(void)requestData
 {
+    [self.data removeAllObjects];
+    
     NSMutableDictionary* dict=[[NSMutableDictionary alloc]init];
     [dict setObject:@"0" forKey:@"start"];
     [dict setObject:@"20" forKey:@"end"];
@@ -297,7 +300,7 @@
     NSString * requestUrl=[NSString stringWithFormat:@"%@offices",kHttpUrl];
     [self.networkEngine postOperationWithURLString:requestUrl params:dict success:^(MKNetworkOperation *completedOperation, id result) {
         NSDictionary* rs=(NSDictionary*)result;
-//        DLog(@"%@",rs);
+        DLog(@"%@",rs);
         id array=[rs objectForKey:@"root"];
         if ([array isKindOfClass:[NSArray class]]) {
             for (int i=0; i<[array count]; i++) {

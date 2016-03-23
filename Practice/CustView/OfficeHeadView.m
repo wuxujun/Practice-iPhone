@@ -8,8 +8,9 @@
 
 #import "OfficeHeadView.h"
 #import "HCurrentUserContext.h"
+#import "UIImageView+AFNetworking.h"
 
-#define ITEM_HEIGHT    34.0
+#define ITEM_HEIGHT    30.0
 
 @interface OfficeHeadView()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -88,6 +89,9 @@
         {
             UIImageView * img=[[UIImageView alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-64)/2, 10, 64, 64)];
             [img setImage:[UIImage imageNamed:@"logo.png"]];
+            if ([self.infoDict objectForKey:@"logo"]) {
+                [img setImageWithURL:[NSURL URLWithString:[self.infoDict objectForKey:@"logo"]] placeholderImage:[UIImage imageNamed:@"logo"]];
+            }
             //            [img sizeToFit];
             [cell addSubview:img];
             
@@ -95,7 +99,9 @@
             [name setTextColor:APP_FONT_COLOR];
             [name setFont:[UIFont systemFontOfSize:20]];
             [name setTextAlignment:NSTextAlignmentCenter];
-            [name setText:@"公司名称"];
+            if ([self.infoDict objectForKey:@"companyName"]) {
+                [name setText:[self.infoDict objectForKey:@"companyName"]];
+            }
             [cell addSubview:name];
             
             UILabel* office=[[UILabel alloc]initWithFrame:CGRectMake(20, 98, SCREEN_WIDTH-40, 40)];
@@ -107,22 +113,22 @@
             }
             [cell addSubview:office];
             
-            UIButton* btn=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-60, 10, 36, 36)];
-            [btn setImage:[UIImage imageNamed:@"ic_collect.png"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"ic_collect_sel.png"] forState:UIControlStateHighlighted];
-            [btn addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
-            [cell addSubview:btn];
+//            UIButton* btn=[[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-60, 10, 36, 36)];
+//            [btn setImage:[UIImage imageNamed:@"ic_collect.png"] forState:UIControlStateNormal];
+//            [btn setImage:[UIImage imageNamed:@"ic_collect_sel.png"] forState:UIControlStateHighlighted];
+//            [btn addTarget:self action:@selector(onButton:) forControlEvents:UIControlEventTouchUpInside];
+//            [cell addSubview:btn];
             
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
             break;
         default:
         {
-            UILabel* lb1=[[UILabel alloc]initWithFrame:CGRectMake(100, 0, SCREEN_WIDTH-120, 34)];
+            UILabel* lb1=[[UILabel alloc]initWithFrame:CGRectMake(80, 0, SCREEN_WIDTH-120, 30)];
             [lb1 setTextColor:APP_FONT_COLOR];
-            [lb1 setFont:[UIFont systemFontOfSize:15]];
+            [lb1 setFont:[UIFont systemFontOfSize:14]];
             
-            cell.textLabel.font=[UIFont systemFontOfSize:16.0];
+            cell.textLabel.font=[UIFont systemFontOfSize:14.0];
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text=@"实习时长";

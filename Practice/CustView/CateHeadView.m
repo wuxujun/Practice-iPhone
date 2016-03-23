@@ -68,7 +68,7 @@
         if ([view isKindOfClass:[UIButton class]]) {
             UIButton* btn=(UIButton*)view;
             if (btn.tag==idx) {
-                [btn setTitleColor:APP_FONT_BLUE forState:UIControlStateNormal];
+                [btn setTitleColor:APP_FONT_LIST_D forState:UIControlStateNormal];
             }else{
                 [btn setTitleColor:APP_FONT_COLOR forState:UIControlStateNormal];
             }

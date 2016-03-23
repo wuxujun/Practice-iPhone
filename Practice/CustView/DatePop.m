@@ -8,9 +8,10 @@
 
 #import "DatePop.h"
 #import "UIButton+Bootstrap.h"
+#import "IMonthPicker.h"
 
-#define CONTAINER_BG_COLOR      RGBACOLOR(0, 0, 0, 0.1f)
-#define MENU_ITEM_HEIGHT        200
+#define CONTAINER_BG_COLOR      RGBACOLOR(0, 0, 0, 0.2f)
+#define MENU_ITEM_HEIGHT        220
 #define FONT_SIZE               18
 #define CELL_IDENTIGIER         @"MenuPopoverCell"
 #define MENU_TABLE_VIEW_FRAME   CGRectMake(0, 0, frame.size.width, frame.size.height)
@@ -26,10 +27,11 @@
 
 #define LANDSCAPE_WIDTH_PADDING 50
 
-@interface DatePop()<UITableViewDataSource,UITableViewDelegate>
+@interface DatePop()<UITableViewDataSource,UITableViewDelegate,IMonthPickerDelegate>
 {
     UITableView*       mTableView;
-    NSString*           pickDate;
+    NSString*          pickDate;
+    int                maxYear;
 }
 
 @property(nonatomic,strong)UIButton *   containerButton;
@@ -50,6 +52,8 @@
         formatter.locale = [NSLocale currentLocale];
         formatter.dateFormat = @"yyyy-MM-dd";
         pickDate=[formatter stringFromDate:[NSDate date]];
+        formatter.dateFormat=@"yyyy";
+        maxYear=[[formatter stringFromDate:[NSDate date]] intValue];
         
         self.containerButton=[[UIButton alloc]init];
         [self.containerButton setBackgroundColor:CONTAINER_BG_COLOR];
@@ -113,15 +117,29 @@
     }
     
     if (indexPath.section==0) {
-        UIDatePicker *datePicker=[[UIDatePicker alloc] init];
-        [datePicker setFrame:CGRectMake(20, 0, SCREEN_WIDTH-40, 199)];
-        datePicker.datePickerMode=UIDatePickerModeDate;
-        datePicker.backgroundColor=[UIColor whiteColor];
-        [datePicker addTarget:self action:@selector(onDateChanged:) forControlEvents:UIControlEventValueChanged];
-        datePicker.tag=indexPath.row;
-        [datePicker setMaximumDate:[NSDate date]];
-        [self clearSeparatorWithView:datePicker];
-        [cell addSubview:datePicker];
+        if (self.dateType==1) {
+            IMonthPicker *datePicker=[[IMonthPicker alloc] init];
+            [datePicker setFrame:CGRectMake(20, 0, SCREEN_WIDTH-40, 199)];
+            datePicker.backgroundColor=[UIColor whiteColor];
+            datePicker.tag=indexPath.row;
+            [datePicker setYearFirst:YES];
+            [datePicker setMonthPickerDelegate:self];
+            [datePicker setMinimumYear:1970];
+            [datePicker setMaximumYear:maxYear];
+            [self clearSeparatorWithView:datePicker];
+            [cell addSubview:datePicker];
+        }else{
+            UIDatePicker* datePicker=[[UIDatePicker alloc]init];
+            datePicker.backgroundColor=[UIColor whiteColor];
+            datePicker.datePickerMode=UIDatePickerModeDate;
+            datePicker.tag=indexPath.row;
+            [datePicker addTarget:self action:@selector(onDateChanged:) forControlEvents:UIControlEventValueChanged];
+            [datePicker setMaximumDate:[NSDate date]];
+    
+            [self clearSeparatorWithView:datePicker];
+            [cell addSubview:datePicker];
+            
+        }
         [self addSeparatorImageToCell:cell];
     }else{
         UIButton* loginBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -171,7 +189,7 @@
 
 -(IBAction)onDateChanged:(id)sender
 {
-    NSDate *date=[sender date];
+    NSDate* date=[sender date];
     NSDateFormatter* formater=[[NSDateFormatter alloc]init];
     [formater setTimeZone:[NSTimeZone timeZoneWithName:@"GTM+8"]];
     formater.dateFormat=@"yyyy-MM-dd";
@@ -179,6 +197,40 @@
         formater.dateFormat=@"yyyy-MM";
     }
     pickDate=[formater stringFromDate:date];
+}
+
+- (void)monthPickerWillChangeDate:(IMonthPicker *)monthPicker
+{
+    NSDate *date=[monthPicker date];
+    NSDateFormatter* formater=[[NSDateFormatter alloc]init];
+    [formater setTimeZone:[NSTimeZone timeZoneWithName:@"GTM+8"]];
+    formater.dateFormat=@"yyyy-MM-dd";
+    if (self.dateType==1) {
+        formater.dateFormat=@"yyyy-MM";
+    }
+    pickDate=[formater stringFromDate:date];
+    
+}
+
+- (void)monthPickerDidChangeDate:(IMonthPicker *)monthPicker
+{
+    NSDate *date=[monthPicker date];
+    NSDateFormatter* formater=[[NSDateFormatter alloc]init];
+    [formater setTimeZone:[NSTimeZone timeZoneWithName:@"GTM+8"]];
+    formater.dateFormat=@"yyyy-MM-dd";
+    if (self.dateType==1) {
+        formater.dateFormat=@"yyyy-MM";
+    }
+    dispatch_queue_t delayQueue = dispatch_queue_create("com.xujun.IMonthPicker.DelayQueue", 0);
+    
+    dispatch_async(delayQueue, ^{
+        // Wait 1 second
+        sleep(1);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+             pickDate=[formater stringFromDate:date];
+        });
+    });
     
 }
 

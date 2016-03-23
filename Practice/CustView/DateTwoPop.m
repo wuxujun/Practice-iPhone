@@ -8,9 +8,10 @@
 
 #import "DateTwoPop.h"
 #import "IDatePicker.h"
+#import "IMonthPicker.h"
 #import "UIButton+Bootstrap.h"
 
-#define CONTAINER_BG_COLOR      RGBACOLOR(0, 0, 0, 0.1f)
+#define CONTAINER_BG_COLOR      RGBACOLOR(0, 0, 0, 0.2f)
 #define MENU_ITEM_HEIGHT        120
 #define FONT_SIZE               18
 #define CELL_IDENTIGIER         @"MenuPopoverCell"
@@ -27,7 +28,7 @@
 
 #define LANDSCAPE_WIDTH_PADDING 50
 
-@interface DateTwoPop()<UITableViewDataSource,UITableViewDelegate,IDatePickerDelegate>
+@interface DateTwoPop()<UITableViewDataSource,UITableViewDelegate,IMonthPickerDelegate>
 {
     UITableView*       mTableView;
     NSString*           beginDate;
@@ -129,18 +130,14 @@
         [biLabel setFont:[UIFont systemFontOfSize:FONT_SIZE]];
         [cell addSubview:biLabel];
     
-//        IDatePicker *picker=[[IDatePicker alloc]initWithFrame:CGRectMake(100, 0, SCREEN_WIDTH-120, 119) maxDate:[NSDate date] minDate:[NSDate dateWithTimeIntervalSince1970:0] showValidDatesOnly:YES showType:0];
-//        [picker setTag:indexPath.row];
-//        [picker setDelegate:self];
-//        [cell addSubview:picker];
-    
-        UIDatePicker *datePicker=[[UIDatePicker alloc] init];
+        IMonthPicker *datePicker=[[IMonthPicker alloc] init];
         [datePicker setFrame:CGRectMake(90, 0, SCREEN_WIDTH-120, 119)];
-        datePicker.datePickerMode=UIDatePickerModeDate;
         datePicker.backgroundColor=[UIColor whiteColor];
-        [datePicker addTarget:self action:@selector(onDateChanged:) forControlEvents:UIControlEventValueChanged];
         datePicker.tag=indexPath.row;
-        [datePicker setMaximumDate:[NSDate date]];
+        [datePicker setMonthPickerDelegate:self];
+        [datePicker setMinimumYear:1980];
+        [datePicker setMaximumYear:2016];
+        [datePicker setYearFirst:YES];
         [self clearSeparatorWithView:datePicker];
         [cell addSubview:datePicker];
         [self addSeparatorImageToCell:cell];
@@ -209,6 +206,43 @@
     }else{
         endDate=[formater stringFromDate:date];
     }
+}
+
+- (void)monthPickerWillChangeDate:(IMonthPicker *)monthPicker
+{
+    NSDate *date=[monthPicker date];
+    NSDateFormatter* formater=[[NSDateFormatter alloc]init];
+    [formater setTimeZone:[NSTimeZone timeZoneWithName:@"GTM+8"]];
+    formater.dateFormat=@"yyyy-MM";
+    if (monthPicker.tag==0) {
+        beginDate=[formater stringFromDate:date];
+    }else{
+        endDate=[formater stringFromDate:date];
+    }
+    
+}
+
+- (void)monthPickerDidChangeDate:(IMonthPicker *)monthPicker
+{
+    NSDate *date=[monthPicker date];
+    NSDateFormatter* formater=[[NSDateFormatter alloc]init];
+    [formater setTimeZone:[NSTimeZone timeZoneWithName:@"GTM+8"]];
+    formater.dateFormat=@"yyyy-MM";
+    dispatch_queue_t delayQueue = dispatch_queue_create("com.xujun.IMonthPicker.DelayQueue", 0);
+    
+    dispatch_async(delayQueue, ^{
+        // Wait 1 second
+        sleep(1);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (monthPicker.tag==0) {
+                beginDate=[formater stringFromDate:date];
+            }else{
+                endDate=[formater stringFromDate:date];
+            }
+        });
+    });
+    
 }
 
 #pragma mark -

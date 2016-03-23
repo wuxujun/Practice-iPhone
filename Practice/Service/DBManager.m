@@ -189,6 +189,11 @@ static DBManager *sharedDBManager=nil;
     NSString *sql =@"SELECT * from t_photo ";
     return [DBHelper queryAll:[PhotoEntity class] sql:sql params:@[]];
 }
+-(BOOL)deletePhotoForId:(NSInteger)pid
+{
+    NSString* sql=[NSString stringWithFormat:@"DELETE FROM t_photo WHERE id=%ld",pid];
+    return [DBHelper excuteSql:sql withArguments:nil];
+}
 
 -(BOOL)insertOrUpdatePhoto:(NSDictionary *)info
 {

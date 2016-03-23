@@ -122,6 +122,7 @@
             [biLabel setFont:[UIFont systemFontOfSize:13.0]];
         }
         [biLabel setTextAlignment:NSTextAlignmentCenter];
+        [biLabel setTextColor:APP_FONT_COLOR];
         [btn addSubview:biLabel];
         
 //        int col=i%4;
