@@ -1,15 +1,15 @@
 [
   {
-  "id":1,"title":"简约直白","image":"ic_my_resume","value":"021"
+  "id":1,"title":"简约直白","image":"ic_my_resume","webUrl":"http://sx.asiainstitute.cn/index.php?/myResume/template1"
   },{
-  "id":2,"title":"霸气豪爽","image":"ic_my_more","value":"0571"
+  "id":2,"title":"霸气豪爽","image":"ic_my_more","webUrl":"http://sx.asiainstitute.cn/index.php?/myResume/template2"
   },{
-  "id":3,"title":"清新婉约","image":"ic_my_message","value":"010"
+  "id":3,"title":"清新婉约","image":"ic_my_message","webUrl":"http://sx.asiainstitute.cn/index.php?/myResume/template3"
   },{
-  "id":4,"title":"校园型","image":"ic_my_setting","value":"020"
+  "id":4,"title":"校园型","image":"ic_my_setting","webUrl":"http://sx.asiainstitute.cn/index.php?/myResume/template4"
  },{
- "id":5,"title":"实习型","image":"ic_my_about","value":"020"
+ "id":5,"title":"实习型","image":"ic_my_about","webUrl":"http://sx.asiainstitute.cn/index.php?/myResume/template5"
  },{
- "id":6,"title":"荣誉型","image":"ic_my_about","value":"020"
+ "id":6,"title":"荣誉型","image":"ic_my_about","webUrl":"http://sx.asiainstitute.cn/index.php?/myResume/template6"
  }
   ]

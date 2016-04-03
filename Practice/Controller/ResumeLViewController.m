@@ -11,8 +11,9 @@
 #import "ResumeEViewController.h"
 #import "UIView+LoadingView.h"
 #import "WebViewController.h"
+#import "ResumeTableCell.h"
 
-@interface ResumeLViewController ()
+@interface ResumeLViewController ()<HSwipeTableCellDelegate>
 
 @end
 
@@ -32,6 +33,7 @@
         self.mTableView.delegate=(id<UITableViewDelegate>)self;
         self.mTableView.dataSource=(id<UITableViewDataSource>)self;
         self.mTableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+        
         [self.view addSubview:self.mTableView];
     }
     
@@ -44,6 +46,7 @@
 {
     ResumeEViewController* dController=[[ResumeEViewController alloc]init];
     dController.infoDict=self.infoDict;
+    dController.isEdit=YES;
     dController.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:dController animated:YES];
 }
@@ -96,41 +99,47 @@
     return [self.data count];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80.0;
+}
+
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *MyIdentifier = @"MyReuseIdentifier";
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    ResumeTableCell *cell = (ResumeTableCell*)[tableView cellForRowAtIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:MyIdentifier];
+        cell = [[ResumeTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle  reuseIdentifier:MyIdentifier];
     }
     cell.backgroundColor=APP_LIST_ITEM_BG;
     NSDictionary* dic=[self.data objectAtIndex:indexPath.row];
     if (dic) {
         if (self.infoDict) {
             if ([[self.infoDict objectForKey:@"listUrl"] isEqualToString:@"resumeWork"]) {
-                cell.textLabel.text=[dic objectForKey:@"companyName"];
-                cell.detailTextLabel.text=[NSString stringWithFormat:@"%@ 至 %@   %@",[dic objectForKey:@"beginTime"],[dic objectForKey:@"endTime"],[dic objectForKey:@"officeName"]];
+                cell.title.text=[dic objectForKey:@"companyName"];
+                cell.content.text=[NSString stringWithFormat:@"%@ 至 %@   %@",[dic objectForKey:@"beginTime"],[dic objectForKey:@"endTime"],[dic objectForKey:@"officeName"]];
             }else if ([[self.infoDict objectForKey:@"listUrl"] isEqualToString:@"resumeLife"]) {
                 if ([dic objectForKey:@"orgName"]!=[NSNull null]) {
-                    cell.textLabel.text=[dic objectForKey:@"orgName"];
+                    cell.title.text=[dic objectForKey:@"orgName"];
                 }
-                cell.detailTextLabel.text=[NSString stringWithFormat:@"%@ 至 %@   %@",[dic objectForKey:@"beginTime"],[dic objectForKey:@"endTime"],[dic objectForKey:@"officeName"]];
+                cell.content.text=[NSString stringWithFormat:@"%@ 至 %@   %@",[dic objectForKey:@"beginTime"],[dic objectForKey:@"endTime"],[dic objectForKey:@"officeName"]];
             }else if ([[self.infoDict objectForKey:@"listUrl"] isEqualToString:@"resumeLang"]) {
-                cell.textLabel.text=[dic objectForKey:@"title"];
-                cell.detailTextLabel.text=[NSString stringWithFormat:@"%@   %@",[dic objectForKey:@"level"],[dic objectForKey:@"content"]];
+                cell.title.text=[dic objectForKey:@"title"];
+                cell.content.text=[NSString stringWithFormat:@"%@   %@",[dic objectForKey:@"level"],[dic objectForKey:@"content"]];
             }else if ([[self.infoDict objectForKey:@"listUrl"] isEqualToString:@"resumeHonor"]) {
                 if ([dic objectForKey:@"title"]!=[NSNull null]) {
-                    cell.textLabel.text=[dic objectForKey:@"title"];
+                    cell.title.text=[dic objectForKey:@"title"];
                 }
-                cell.detailTextLabel.text=[NSString stringWithFormat:@"%@ 至 %@   %@",[dic objectForKey:@"beginTime"],[dic objectForKey:@"endTime"],[dic objectForKey:@"content"]];
+                cell.content.text=[NSString stringWithFormat:@"%@  %@",[dic objectForKey:@"beginTime"],[dic objectForKey:@"content"]];
             }
         }
         cell.backgroundColor=[UIColor whiteColor];
     }
-    UIView* line=[[UIView alloc]initWithFrame:CGRectMake(0, 43.5, SCREEN_WIDTH, 0.5)];
+    UIView* line=[[UIView alloc]initWithFrame:CGRectMake(0, 79.5, SCREEN_WIDTH, 0.5)];
     [line setBackgroundColor:APP_LINE_COLOR];
     [cell addSubview:line];
-    
+    cell.delegate=self;
+    cell.rightButtons=[self createRightButtons:1];
     cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
@@ -141,12 +150,61 @@
 
     NSDictionary* dic=[self.data objectAtIndex:indexPath.row];
     if (dic) {
-        WebViewController* dController=[[WebViewController alloc]init];
+//        WebViewController* dController=[[WebViewController alloc]init];
+        ResumeEViewController* dController=[[ResumeEViewController alloc]init];
+        dController.isEdit=NO;
         dController.infoDict=self.infoDict;
         dController.dataDict=dic;
         [self.navigationController pushViewController:dController animated:YES];
     }
 }
 
+-(BOOL)swipeTableCell:(HSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(HSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
+{
+    if (direction==HSwipeDirectionRightToLeft) {
+        NSIndexPath *path=[self.mTableView indexPathForCell:cell];
+        NSDictionary *entity=[self.data objectAtIndex:path.row];
+        if (entity) {
+            [self requestDel:entity];
+        }
+        [self.mTableView beginUpdates];
+        [self.data removeObjectAtIndex:path.row];
+        [self.mTableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationLeft];
+        [self.mTableView endUpdates];
+        return NO;
+    }
+    
+    return YES;
+}
+
+-(NSArray*)swipeTableCell:(HSwipeTableCell *)cell swipeButtonsForDirection:(HSwipeDirection)direction swipeSettings:(HSwipeSettings *)swipeSettings expansionSettings:(HSwipeExpansionSettings *)expansionSettings
+{
+    if (direction==HSwipeDirectionRightToLeft) {
+        NSIndexPath *path=[self.mTableView indexPathForCell:cell];
+        expansionSettings.buttonIndex=path.row;
+        expansionSettings.fillOnTrigger=YES;
+        NSDictionary *entity=[self.data objectAtIndex:path.row];
+        if (entity) {
+           return [self createRightButtons:1];
+        }
+        return nil;
+    }
+    return nil;
+}
+
+-(void)requestDel:(NSDictionary*)dict
+{
+    NSMutableDictionary* dic=[[NSMutableDictionary alloc]init];
+    NSString* idKey=[self.infoDict objectForKey:@"keyValue"];
+    [dic setObject:[self.infoDict objectForKey:@"actionType"] forKey:@"actionType" ];
+    [dic setObject:[dict objectForKey:idKey] forKey:idKey];
+    NSString * requestUrl=[NSString stringWithFormat:@"%@%@",kHttpUrl,@"delResumeAction"];
+    [self.networkEngine postOperationWithURLString:requestUrl params:dic success:^(MKNetworkOperation *completedOperation, id result) {
+        NSDictionary* rs=(NSDictionary*)result;
+        DLog(@"%@",rs);
+    } error:^(NSError *error) {
+        
+    }];
+}
 
 @end

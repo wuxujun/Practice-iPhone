@@ -13,6 +13,7 @@
 #import "ResumeEViewController.h"
 #import "HCurrentUserContext.h"
 #import "LoginViewController.h"
+#import "WebViewController.h"
 #import "ResumeHeadView.h"
 
 @interface ResumeViewController()<ResumeHeadViewDelegate>
@@ -138,6 +139,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section==1) {
+        NSDictionary* dc=[self.data objectAtIndex:indexPath.row];
+        WebViewController* dController=[[WebViewController alloc]init];
+        dController.infoDict=dc;
+        dController.hidesBottomBarWhenPushed=YES;
+        [self.navigationController pushViewController:dController animated:YES];
+    }
 }
 
 #pragma mark - ResumeHeadViewDelegate
@@ -148,6 +156,7 @@
         if ([[HCurrentUserContext sharedInstance] uid]) {
             if ([[dic objectForKey:@"id"] integerValue]==1) {
                 ResumeEViewController* dController=[[ResumeEViewController alloc]init];
+                dController.isEdit=YES;
                 dController.infoDict=dic;
                 dController.hidesBottomBarWhenPushed=YES;
                 [self.navigationController pushViewController:dController animated:YES];

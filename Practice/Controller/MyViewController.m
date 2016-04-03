@@ -190,6 +190,7 @@
         case 100:
         {
             ResumeEViewController* dController=[[ResumeEViewController alloc]init];
+            dController.isEdit=YES;
             dController.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"我的信息",@"title",@"my_info_input",@"fileName",@"updateUser",@"actionUrl", nil];
             dController.hidesBottomBarWhenPushed=YES;
             [self.navigationController pushViewController:dController animated:YES];

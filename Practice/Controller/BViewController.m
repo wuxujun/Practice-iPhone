@@ -8,6 +8,7 @@
 
 #import "BViewController.h"
 #import "SIAlertView.h"
+#import "HSwipeButton.h"
 #import "UIViewController+NavigationBarButton.h"
 
 @interface BViewController()
@@ -87,4 +88,21 @@
     });
 
 }
+
+
+-(NSArray*)createRightButtons:(int)nums
+{
+    NSMutableArray* result=[[NSMutableArray alloc]init];
+    NSString * titles[2]={@"删除",@""};
+    UIColor* colors[2]={[UIColor redColor],[UIColor blueColor]};
+    for (int i=0; i<nums; i++) {
+        HSwipeButton* btn=[HSwipeButton buttonWithTitle:titles[i] backgroundColor:colors[i] callback:^BOOL(HSwipeTableCell *sender) {
+            BOOL autoHide=i!=0;
+            return autoHide;
+        }];
+        [result addObject:btn];
+    }
+    return result;
+}
+
 @end

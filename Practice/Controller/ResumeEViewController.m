@@ -8,6 +8,9 @@
 
 #import "ResumeEViewController.h"
 #import "UIViewController+NavigationBarButton.h"
+#import "TZImagePickerController.h"
+#import "PathHelper.h"
+#import "DBManager.h"
 #import "CateHeadView.h"
 #import "HKeyboardTableView.h"
 #import "CatSelectView.h"
@@ -21,10 +24,11 @@
 #import "UserDefaultHelper.h"
 
 
-@interface ResumeEViewController ()<UITextFieldDelegate,CatSelectViewDelegate,CatTSelectViewDelegate,DatePopDelegate,DateTwoPopDelegate,EditViewPopDelegate>
+@interface ResumeEViewController ()<UITextFieldDelegate,CatSelectViewDelegate,CatTSelectViewDelegate,DatePopDelegate,DateTwoPopDelegate,EditViewPopDelegate,TZImagePickerControllerDelegate>
 
 @property(nonatomic,strong)NSMutableArray      *inputValues;
 @property(nonatomic,strong)NSMutableDictionary * inputDataDict;
+
 @end
 
 @implementation ResumeEViewController
@@ -37,7 +41,13 @@
     [self addBackBarButton];
     // Do any additional setup after loading the view.
     
-    [self addRightTitleButton:@"保存" action:@selector(onSave:)];
+    if (self.isEdit) {
+        [self addRightTitleButton:@"保存" action:@selector(onSave:)];
+        DLog(@"123  true");
+    }else{
+        [self addRightTitleButton:@"编辑" action:@selector(onEdit:)];
+        DLog(@"234  false");
+    }
     
     if (self.mTableView==nil) {
         self.mTableView=[[HKeyboardTableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
@@ -51,6 +61,15 @@
     if (self.infoDict) {
         [self setCenterTitle:[NSString stringWithFormat:@"%@",[self.infoDict objectForKey:@"title"]]];
     }
+}
+
+-(IBAction)onEdit:(id)sender
+{
+    if (!self.isEdit) {
+        self.isEdit=true;
+        [self addRightTitleButton:@"保存" action:@selector(onSave:)];
+    }
+    [self.mTableView reloadData];
 }
 
 -(IBAction)onSave:(id)sender
@@ -84,6 +103,9 @@
             for (NSString *key in self.inputDataDict) {
                 [dict setObject:[self.inputDataDict objectForKey:key] forKey:key];
             }
+            if (self.dataDict) {
+                [dict setObject:[self.dataDict objectForKey:[self.infoDict objectForKey:@"keyId"]] forKey:@"id"];
+            }
             if ([self.inputValues count]>0) {
                 [dict setObject:self.inputValues forKey:@"datas"];
             }
@@ -105,6 +127,7 @@
 {
     [super viewDidAppear:animated];
     DLog(@"111111111");
+    [self.data removeAllObjects];
     NSString* fileName=[NSString stringWithFormat:@"%@",[self.infoDict objectForKey:@"fileName"]];
     NSData *jsdata = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:fileName ofType:@"json"]];
     @autoreleasepool {
@@ -114,7 +137,9 @@
             for (NSDictionary *dic in dicArray)
             {
                 [self.data addObject:dic];
+                DLog(@"%@",dic);
                 NSString* type=[dic objectForKey:@"type"];
+                NSString* value=[dic objectForKey:@"value"];
                 if ([type isEqualToString:@"0"]||[type isEqualToString:@"1"]||[type isEqualToString:@"2"]) {
                     [self.inputDataDict setObject:@"" forKey:[dic objectForKey:@"value"]];
                     if ([[dic objectForKey:@"value"] isEqualToString:@"mobile"]) {
@@ -126,6 +151,22 @@
                 }else if([type isEqualToString:@"3"]||[type isEqualToString:@"6"]){
                     [self.inputDataDict setObject:@"" forKey:[dic objectForKey:@"value"]];
                     [self.inputDataDict setObject:@"" forKey:[dic objectForKey:@"valueCode"]];
+                }
+                if (!self.isEdit&&self.dataDict) {
+                    if ([type isEqualToString:@"0"]||[type isEqualToString:@"6"]||[type isEqualToString:@"10"]||[type isEqualToString:@"3"]||[type isEqualToString:@"2"]) {
+                        if ([value isEqualToString:@"msg"]) {
+                            if ([[self.dataDict objectForKey:@"content"] isEqual:[NSNull null]]) {
+                                [self.inputDataDict setObject:@"" forKey:value];
+                            }else{
+                                [self.inputDataDict setObject:[self.dataDict objectForKey:@"content"]  forKey:value];
+                            }
+                        }else{
+                            [self.inputDataDict setObject:[self.dataDict objectForKey:value] forKey:value];
+                            if ([type isEqualToString:@"6"]||[type isEqualToString:@"3"]) {
+                                [self.inputDataDict setObject:[self.dataDict objectForKey:[dic objectForKey:@"valueCode"]] forKey:[dic objectForKey:@"valueCode"]];
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -147,6 +188,10 @@
                         }
                     }
                     NSLog(@"%@",self.inputDataDict);
+                    if (([[self.inputDataDict objectForKey:@"email"] isEqual:[NSNull null]]||[[self.inputDataDict objectForKey:@"email"] length]==0)&&[[HCurrentUserContext sharedInstance] email]) {
+                        [self.inputDataDict setObject:[[HCurrentUserContext sharedInstance] email] forKey:@"email"];
+                    }
+                    NSLog(@"%@",self.inputDataDict);
                     [self.mTableView reloadData];
                 }
             }
@@ -159,15 +204,17 @@
         NSString * requestUrl=[NSString stringWithFormat:@"%@%@",kHttpUrl,@"memberInfo"];
         [self.networkEngine postOperationWithURLString:requestUrl params:dict success:^(MKNetworkOperation *completedOperation, id result) {
             NSDictionary* rs=(NSDictionary*)result;
-            DLog(@"%@",rs);
             id array=[rs objectForKey:@"root"];
             if ([array isKindOfClass:[NSArray class]]) {
                 if ([array count]>0) {
                     NSDictionary *dc=[array objectAtIndex:0];
                     for (NSString *key in dc) {
                         NSLog(@"key: %@ value: %@", key, dc[key]);
-                        if ([self.inputDataDict objectForKey:key]) {
-                            [self.inputDataDict setObject:dc[key] forKey:key];
+                        if ([key isEqualToString:@"userAvatar"]&&[dc[key] isEqual:[NSNull null]]) {
+                        }else{
+                            if ([self.inputDataDict objectForKey:key]) {
+                                [self.inputDataDict setObject:dc[key] forKey:key];
+                            }
                         }
                     }
                     NSLog(@"%@",self.inputDataDict);
@@ -178,6 +225,9 @@
         } error:^(NSError *error) {
             
         }];
+    }
+    if (!self.isEdit) {
+        DLog(@"%@",self.dataDict);
     }
    
     [self.mTableView reloadData];
@@ -192,6 +242,12 @@
     [self.view showHUDLoadingView:YES];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    NSDictionary* dic=[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"type", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UPLOAD_IMAGE_NOTIFICATION object:dic];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -259,6 +315,9 @@
                 //头像
                 UIImageView* icon=[[UIImageView alloc]initWithFrame:CGRectMake(15, 8, 64, 64)];
                 [icon setImage:[UIImage imageNamed:@"logo"]];
+                if (![[self.inputDataDict objectForKey:@"userAvatar"] isEqual:[NSNull null]]&&[[self.inputDataDict objectForKey:@"userAvatar"] length]>0) {
+                    [icon setImage:[UIImage imageNamed:[PathHelper filePathInDocument:[self.inputDataDict objectForKey:@"userAvatar"]]]];
+                }
                 [cell addSubview:icon];
                 cell.backgroundColor=[UIColor whiteColor];
             
@@ -282,7 +341,7 @@
         
             if ([type isEqualToString:@"0"]||[type isEqualToString:@"10"]) { //输入
                 UITextField* txtField=[[UITextField alloc]initWithFrame:CGRectMake(120, 5, SCREEN_WIDTH-150, 34)];
-            
+                [txtField setEnabled:self.isEdit];
                 [txtField setBorderStyle:UITextBorderStyleNone];
                 [txtField setTextAlignment:NSTextAlignmentRight];
                 if ([type isEqualToString:@"10"]) {
@@ -363,7 +422,7 @@
             }
         }
     
-        if ([type isEqualToString:@"3"]||[type isEqualToString:@"5"]||[type isEqualToString:@"4"]) {
+        if (([type isEqualToString:@"3"]||[type isEqualToString:@"5"]||[type isEqualToString:@"4"])&&self.isEdit) {
             cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         }
         
@@ -379,9 +438,9 @@
     }
     NSDictionary* dic=[self.data objectAtIndex:indexPath.row];
     NSString* type=[dic objectForKey:@"type"];
-    if ([type isEqualToString:@"2"]) {
+    if ([type isEqualToString:@"2"]&&self.isEdit) {
         [self didChangeDate:indexPath.row];
-    }else if([type isEqualToString:@"3"]){
+    }else if([type isEqualToString:@"3"]&&self.isEdit){
         if ([[dic objectForKey:@"value"] isEqualToString:@"educational"]||[[dic objectForKey:@"value"] isEqualToString:@"grade"]||[[dic objectForKey:@"value"] isEqualToString:@"level"]) {
             CatSelectView* sheetView=[[CatSelectView alloc]initWithFrame:CGRectMake(10, SCREEN_HEIGHT/2-2, SCREEN_WIDTH-20, SCREEN_HEIGHT/2) delegate:self ];
             [sheetView setTag:indexPath.row];
@@ -402,10 +461,29 @@
         [editView setTitle:[dic objectForKey:@"title"]];
         [editView setTag:indexPath.row];
         [editView showInView:self.view];
-    }else if([type isEqualToString:@"6"]){
+    }else if([type isEqualToString:@"6"]&&self.isEdit){
         DateTwoPop* dateView=[[DateTwoPop alloc]initWithFrame:CGRectMake(10, (SCREEN_HEIGHT-284)/2, SCREEN_WIDTH-20, 284.0) delegate:self];
         [dateView setTag:indexPath.row];
         [dateView showInView:self.view];
+    }else if ([type isEqualToString:@"4"]){
+        TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+        [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets) {
+            for (int i1=0; i1<[photos count]; i1++) {
+                NSDateFormatter *formatter=[[NSDateFormatter alloc]init];
+                [formatter setDateFormat:@"YYYYMMddhhmmss"];
+                NSString *curTime=[formatter stringFromDate:[NSDate date] ];
+                NSString* fileName=[NSString stringWithFormat:@"%@_%d.jpg",curTime,i1];
+                NSString* filePath=[PathHelper filePathInDocument:fileName];
+                [self.inputDataDict setObject:fileName forKey:@"userAvatar"];
+                UIImage* image=photos[i1];
+                if (image) {
+                    [[NSFileManager defaultManager] createFileAtPath:filePath contents:UIImageJPEGRepresentation(image, 0.8) attributes:nil];
+                    [[DBManager getInstance] insertOrUpdatePhoto:[NSDictionary dictionaryWithObjectsAndKeys:@"0",@"filePath",fileName,@"fileName",@"0",@"imageUrl",@"0",@"state",@"0",@"isUpload",[NSString stringWithFormat:@"%ld",(long)[[NSDate date] timeIntervalSince1970]],@"addtime", nil]];
+                }
+            }
+            
+        }];
+        [self presentViewController:imagePickerVc animated:YES completion:nil];
     }
 }
 

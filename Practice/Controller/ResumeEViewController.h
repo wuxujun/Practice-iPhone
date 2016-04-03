@@ -10,4 +10,7 @@
 
 @interface ResumeEViewController : BViewController
 
+@property(nonatomic,assign)BOOL  isEdit;
+@property(nonatomic,strong)NSDictionary*    dataDict;
+
 @end

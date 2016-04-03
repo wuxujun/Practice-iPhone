@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		420AE3281CB15B250014C7E5 /* HSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 420AE3251CB15B250014C7E5 /* HSwipeButton.m */; };
+		420AE3291CB15B250014C7E5 /* HSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 420AE3271CB15B250014C7E5 /* HSwipeTableCell.m */; };
+		420AE32C1CB15B930014C7E5 /* ResumeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 420AE32B1CB15B930014C7E5 /* ResumeTableCell.m */; };
 		42111F101C51F20300D336BE /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42111F0F1C51F20300D336BE /* Photos.framework */; };
 		42111F3B1C58C5D800D336BE /* OfficeFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42111F3A1C58C5D800D336BE /* OfficeFootView.m */; };
 		4218B0E11C45383000FFD213 /* DateTwoPop.m in Sources */ = {isa = PBXBuildFile; fileRef = 4218B0E01C45383000FFD213 /* DateTwoPop.m */; };
@@ -266,6 +269,12 @@
 
 /* Begin PBXFileReference section */
 		0529BF2B7D451B578B127D7C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		420AE3241CB15B250014C7E5 /* HSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSwipeButton.h; sourceTree = "<group>"; };
+		420AE3251CB15B250014C7E5 /* HSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSwipeButton.m; sourceTree = "<group>"; };
+		420AE3261CB15B250014C7E5 /* HSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSwipeTableCell.h; sourceTree = "<group>"; };
+		420AE3271CB15B250014C7E5 /* HSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSwipeTableCell.m; sourceTree = "<group>"; };
+		420AE32A1CB15B930014C7E5 /* ResumeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResumeTableCell.h; sourceTree = "<group>"; };
+		420AE32B1CB15B930014C7E5 /* ResumeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResumeTableCell.m; sourceTree = "<group>"; };
 		42111F0F1C51F20300D336BE /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		42111F391C58C5D800D336BE /* OfficeFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfficeFootView.h; sourceTree = "<group>"; };
 		42111F3A1C58C5D800D336BE /* OfficeFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfficeFootView.m; sourceTree = "<group>"; };
@@ -675,6 +684,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		420AE3231CB15B250014C7E5 /* HSwipeTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				420AE3241CB15B250014C7E5 /* HSwipeButton.h */,
+				420AE3251CB15B250014C7E5 /* HSwipeButton.m */,
+				420AE3261CB15B250014C7E5 /* HSwipeTableCell.h */,
+				420AE3271CB15B250014C7E5 /* HSwipeTableCell.m */,
+			);
+			path = HSwipeTableCell;
+			sourceTree = "<group>";
+		};
 		4243E9F21BAB19F200481C43 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -860,6 +880,8 @@
 				4289EE671C85E0B90018BD47 /* IMonthPicker.m */,
 				421DFA2E1CA0434000DF49D9 /* ResumePreviewCell.h */,
 				421DFA2F1CA0434000DF49D9 /* ResumePreviewCell.m */,
+				420AE32A1CB15B930014C7E5 /* ResumeTableCell.h */,
+				420AE32B1CB15B930014C7E5 /* ResumeTableCell.m */,
 			);
 			path = CustView;
 			sourceTree = "<group>";
@@ -867,6 +889,7 @@
 		42B4C8D01B8D9791001E3B37 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				420AE3231CB15B250014C7E5 /* HSwipeTableCell */,
 				426966F81C3ECC5F0008274F /* StrapButton */,
 				425BA2571BE1DFBD0089A76A /* HSegmentView */,
 				42805EB71BD2B06F00E78671 /* DMLazyScrollView */,
@@ -1504,6 +1527,7 @@
 				42B4C9581B8D9C7D001E3B37 /* VerticallyAlignedLabel.m in Sources */,
 				4253E0451C36B3C9000656FE /* OfficeViewController.m in Sources */,
 				42B4C92A1B8D9791001E3B37 /* MKNetworkOperation.m in Sources */,
+				420AE3281CB15B250014C7E5 /* HSwipeButton.m in Sources */,
 				42B4C9141B8D9791001E3B37 /* NSObject+MKBlockAdditions.m in Sources */,
 				42805EC11BD3DF9300E78671 /* HSegmentedViewController.m in Sources */,
 				4218B0E11C45383000FFD213 /* DateTwoPop.m in Sources */,
@@ -1538,6 +1562,7 @@
 				42B4C9831B8DA024001E3B37 /* CityEntity.m in Sources */,
 				4253E03B1C351B0D000656FE /* EduEntity.m in Sources */,
 				42B4C9271B8D9791001E3B37 /* NSString+MKNetworkKitAdditions.m in Sources */,
+				420AE32C1CB15B930014C7E5 /* ResumeTableCell.m in Sources */,
 				425BA25A1BE1DFD70089A76A /* HSegmentView.m in Sources */,
 				4218B0EB1C469E6200FFD213 /* DatePop.m in Sources */,
 				42805EBB1BD2B06F00E78671 /* DMLazyScrollView.m in Sources */,
@@ -1562,6 +1587,7 @@
 				426EC0801B9056D700B0FB7A /* BaseViewController.m in Sources */,
 				4243E9F11BAB196700481C43 /* TextFieldValidator.m in Sources */,
 				4253E0381C351AF9000656FE /* SearchHisEntity.m in Sources */,
+				420AE3291CB15B250014C7E5 /* HSwipeTableCell.m in Sources */,
 				4253E05B1C37B592000656FE /* WebViewController.m in Sources */,
 				42B4C98D1B8DAF3F001E3B37 /* AttentionViewController.m in Sources */,
 				422301861BDA363100586612 /* CityViewPop.m in Sources */,

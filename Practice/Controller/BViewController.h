@@ -28,5 +28,6 @@
 -(void)initTableView:(CGRect)frame;
 -(void)alertRequestResult:(NSString*)message isPop:(BOOL)flag;
 
+-(NSArray*)createRightButtons:(int)nums;
 
 @end

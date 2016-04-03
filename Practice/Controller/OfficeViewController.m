@@ -358,6 +358,7 @@
             [self requestData];
         }else{
             ResumeEViewController* dController=[[ResumeEViewController alloc]init];
+            dController.isEdit=YES;
             dController.infoDict=[NSDictionary dictionaryWithObjectsAndKeys:@"基本信息",@"title",@"resume_info_input",@"fileName",@"addMemberResume",@"actionUrl",@"resumeInfo",@"listUrl", nil];
             [self.navigationController pushViewController:dController animated:YES];
         }
